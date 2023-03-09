@@ -4,17 +4,23 @@
         <div class="left">
         <img src="/src/assets/miliboo_logo.png" alt="Logo Logements" >
         </div>
-        <div class="account_img">
-
+        <div class="img_nav">
+          <img class="image"  src="/src/assets/logo_user.png">
+          <div class="text">Compte</div>
+        </div>
+        <div class="img_nav">
+          <img class="image"  src="/src/assets/boutique.png">
+          <div class="text">Boutique</div>
         </div>
         <div class="search-container">
             <img src="/src/assets/loupe.png" alt="Loupe" @click="search()">
             <input type="text" v-model="searchTerm" placeholder="Rechercher..." @keydown.enter="search()">
         </div>
     </div>  
+    
 </template>
   
-<script>
+<script>   
   export default {
     data() {
       return {
@@ -40,7 +46,7 @@
 
 .container{
     display: flex;
-    justify-content:safe;
+    justify-content:space-between;
     padding-top: 1rem;
     margin-right: 1rem;
 }
@@ -53,6 +59,39 @@
 
 .left img{
     width: 20vw;
+}
+
+.img_nav {
+  display: flexbox;
+  position: relative;
+  width: 3vw;
+  height: auto;
+  text-align: center; 
+}
+
+.image {
+  position:relative;
+  top: 1.5rem;
+  width: 3vw;
+  height: auto;
+  text-align: center;
+}
+
+.text {
+  position:absolute;
+  bottom:0;
+  left: 0;
+  width: auto;
+  text-align: left;
+  opacity: 0;
+  font-weight: bolder;
+  transition: all 0.25s ease-in-out;
+}
+
+.img_nav:hover .text {
+  bottom:0;
+  opacity: 1;
+  transform: translateY(5vh);
 }
 
 .search-container {
