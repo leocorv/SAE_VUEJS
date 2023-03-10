@@ -1,23 +1,23 @@
 <template>
-    <div class="flex justify-between pt-4 mr-4 pb-2 dark:bg-gray-800">
+    <div class="flex justify-between pt-4 mr-4 pb-3 border-b-2 border-yellow-900 dark:bg-gray-800 border-b-0">
         <div class="text-left align-left pl-4">
         <img class="h-auto w-72 dark:rounded-md" src="/src/assets/miliboo_logo.png" alt="Logo miliboo" >
         </div>
         <div class="flexbox relative w-20 img_nav">
           <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/logo_user.png">
-          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold">Compte</div>
+          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Compte</div>
         </div>
         <div class="flexbox relative w-20 img_nav">
           <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/boutique.png">
-          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold">Boutique</div>
+          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Boutique</div>
         </div>
         <div class="flexbox relative w-20 img_nav">
           <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/caddie.png">
-          <div class="absolute ml-3 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold">Panier</div>
+          <div class="absolute ml-3 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Panier</div>
         </div>
         <div class="flexbox relative w-20 img_nav">
           <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/help.png">
-          <div class="absolute l-0 ml-3 text-center opacity-0 font-bold transition-all w-3 text dark:text-white font-semibold">Aide</div>
+          <div class="absolute l-0 ml-3 text-center opacity-0 font-bold transition-all w-3 text dark:text-white font-semibold contrast-50">Aide</div>
         </div>
         <div class="search-container">
             <img src="/src/assets/loupe.png" alt="Loupe" @click="search()">
@@ -48,16 +48,6 @@
     *{
     margin: 0px;
     font-family: "Sora", sans-serif;
-}
-
-.left{
-    text-align: left;
-    align-items: left;
-    padding-left: 1rem;
-}
-
-.left img{
-    width: 20vw;
 }
 
 .text {

@@ -1,25 +1,47 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import Nav from './components/Nav.vue'
+import FooterVue from './components/Footer.vue';
 import SearchBar from './components/SearchBar.vue';
+import Footer from './components/Footer.vue';
 </script>
 
 <template>
   <SearchBar />
-  <!-- <Nav /> -->
-  <!-- <header>
-    <h1 class="text-3xl font-bold underline">Miliboo</h1>  
-    
-  </header> -->
+  
 
+  <Footer />
   <RouterView />
+
+  <footer>
+        <p style="margin-bottom:8px;">
+            <a href="/mentions-legales">Mentions légales</a>
+            |
+            <a href="/donnees-personnelles">Politique des données personnelles</a>
+            |
+            <a id="gerer_cookie_footer" href="#">Gérer mes cookies</a>
+            |
+            <a href="/contact">Contact</a>
+            |
+            <a href="/faq">F.A.Q</a>
+        </p>
+        <p>Miliboo ~2023</p>
+</footer>
 
 </template>
 
 <style scoped>
-/* h1{
-  text-align: center;
-  
-} */
+ footer{
+        border-top: 1px solid rgba(0, 0, 0, 0.589);
+        margin-top: 5vh;
+        padding-top: 1rem;
+        padding-bottom: 5px;
+        margin-bottom: 0 ;
+        margin-top: auto;
+        width: 100%;
+        text-align: center;
+        background-color: grey;
+        height: 7rem;
+        position: absolute;
+    }
 
 </style>
