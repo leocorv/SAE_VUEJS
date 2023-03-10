@@ -1,23 +1,32 @@
 <template>
-    <div class="container">
-        
-        <div class="left">
-        <img src="/src/assets/miliboo_logo.png" alt="Logo Logements" >
+    <div class="flex justify-between pt-4 mr-4">
+        <div class="text-left align-left pl-4">
+        <img class="h-auto w-72" src="/src/assets/miliboo_logo.png" alt="Logo miliboo" >
         </div>
-        <div class="img_nav">
-          <img class="image"  src="/src/assets/logo_user.png">
-          <div class="text">Compte</div>
+        <div class="flexbox relative w-20 img_nav">
+          <img class="relative top-6 w-14 text-center image"  src="/src/assets/logo_user.png">
+          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text">
+            Compte
+          </div>
         </div>
-        <div class="img_nav">
-          <img class="image"  src="/src/assets/boutique.png">
-          <div class="text">Boutique</div>
+        <div class="flexbox relative w-20 img_nav">
+          <img class="relative top-6 w-14 text-center image"  src="/src/assets/boutique.png">
+          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text">Boutique</div>
+        </div>
+        <div class="flexbox relative w-20 img_nav">
+          <img class="relative top-6 w-14 text-center image"  src="/src/assets/caddie.png">
+          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text">Panier</div>
+        </div>
+        <div class="flexbox relative w-20 img_nav">
+          <img class="relative top-6 w-14 text-center image"  src="/src/assets/help.png">
+          <div class="absolute l-0 text-center opacity-0 font-bold transition-all w-3 text">Aide</div>
         </div>
         <div class="search-container">
             <img src="/src/assets/loupe.png" alt="Loupe" @click="search()">
             <input type="text" v-model="searchTerm" placeholder="Rechercher..." @keydown.enter="search()">
         </div>
     </div>  
-    
+
 </template>
   
 <script>   
@@ -44,13 +53,6 @@
     font-family: "Sora", sans-serif;
 }
 
-.container{
-    display: flex;
-    justify-content:space-between;
-    padding-top: 1rem;
-    margin-right: 1rem;
-}
-
 .left{
     text-align: left;
     align-items: left;
@@ -61,37 +63,14 @@
     width: 20vw;
 }
 
-.img_nav {
-  display: flexbox;
-  position: relative;
-  width: 3vw;
-  height: auto;
-  text-align: center; 
-}
-
-.image {
-  position:relative;
-  top: 1.5rem;
-  width: 3vw;
-  height: auto;
-  text-align: center;
-}
-
 .text {
-  position:absolute;
-  bottom:0;
-  left: 0;
-  width: auto;
-  text-align: left;
-  opacity: 0;
-  font-weight: bolder;
   transition: all 0.25s ease-in-out;
 }
 
 .img_nav:hover .text {
-  bottom:0;
+  /* bottom:0; */
   opacity: 1;
-  transform: translateY(5vh);
+  transform: translateY(1.5rem);
 }
 
 .search-container {
@@ -127,4 +106,4 @@
 .search-container input[type="text"]:focus {
   outline: none;
 }
-</style>
+</style> 

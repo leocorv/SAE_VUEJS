@@ -6,19 +6,20 @@ import SearchBar from './components/SearchBar.vue';
 
 <template>
   <SearchBar />
-  <Nav />
-  <header>
-    <h1>Miliboo</h1>  
-  </header>
+  <!-- <Nav /> -->
+  <!-- <header>
+    <h1 class="text-3xl font-bold underline">Miliboo</h1>  
+    
+  </header> -->
 
   <RouterView />
 
 </template>
 
 <style scoped>
-h1{
+/* h1{
   text-align: center;
   
-}
+} */
 
 </style>
