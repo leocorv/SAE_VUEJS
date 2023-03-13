@@ -10,7 +10,7 @@ import SearchBar from './components/SearchBar.vue';
   <RouterView />
 
 <footer class="p-4 bg-white sm:p-6 dark:bg-gray-900">
-    <div class="md:flex md:justify-between">
+    <div class="md:justify-between">
         <div class="grid grid-cols-2 gap-8 text-center sm:gap-6 sm:grid-cols-3">
             <div>
                 <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
@@ -38,7 +38,7 @@ import SearchBar from './components/SearchBar.vue';
                         <a href="#" class="hover:underline">Mentions légales</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline">Politique des données personnelles</a>
+                        <a href="#" class="hover:underline">Données personnelles</a>
                     </li>
                 </ul>
             </div>
