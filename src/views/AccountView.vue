@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <h2>Compte</h2>
+  <!-- <h2>Compte</h2> -->
   <div v-if="logged === false">
     <LoginView />
   </div>
