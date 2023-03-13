@@ -1,23 +1,33 @@
 <template>
     <div class="flex justify-between pt-4 mr-4 pb-3 border-b-2 border-yellow-900 dark:bg-gray-800 border-b-0">
         <div class="text-left align-left pl-4">
-        <img class="h-auto w-72 dark:rounded-md" src="/src/assets/miliboo_logo.png" alt="Logo miliboo" >
+          <a href="/">
+            <img class="h-auto w-72 dark:rounded-md" src="/src/assets/miliboo_logo.png" alt="Logo miliboo" >
+          </a>
+          </div>
+        <div class="flexbox relative w-20 img_nav">
+          <a href="/account">
+            <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/logo_user.png">
+            <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Compte</div>
+          </a>
         </div>
         <div class="flexbox relative w-20 img_nav">
-          <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/logo_user.png">
-          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Compte</div>
+          <a href="/boutique">
+            <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/boutique.png">
+            <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Boutique</div>
+          </a>    
         </div>
         <div class="flexbox relative w-20 img_nav">
-          <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/boutique.png">
-          <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Boutique</div>
+          <a href="/panier">
+            <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/caddie.png">
+            <div class="absolute ml-3 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Panier</div>
+          </a>
         </div>
         <div class="flexbox relative w-20 img_nav">
-          <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/caddie.png">
-          <div class="absolute ml-3 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Panier</div>
-        </div>
-        <div class="flexbox relative w-20 img_nav">
-          <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/help.png">
-          <div class="absolute l-0 ml-3 text-center opacity-0 font-bold transition-all w-3 text dark:text-white font-semibold contrast-50">Aide</div>
+          <a href="/panier">
+            <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/help.png">
+            <div class="absolute l-0 ml-3 text-center opacity-0 font-bold transition-all w-3 text dark:text-white font-semibold contrast-50">Aide</div>
+          </a>
         </div>
         <div class="search-container">
             <img src="/src/assets/loupe.png" alt="Loupe" @click="search()">
@@ -40,6 +50,7 @@
       }
     }
   }
+
 </script>
   
 

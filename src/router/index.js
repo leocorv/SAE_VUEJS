@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import SellView from '../views/SellView.vue'
-import SearchView from '../views/SearchView.vue'
-import LocationView from '../views/LocationView.vue'
+import BoutiqueView from '../views/BoutiqueView.vue'
+import AccountView from '../views/AccountView.vue'
+import HelpView from '../views/AideView.vue'
+import PanierView from '../views/PanierView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,19 +15,24 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/sell',
-      name: 'sell',
-      component: SellView
+      path: '/boutique',
+      name: 'boutique',
+      component: BoutiqueView
     },
     {
-      path: '/search',
-      name: 'search',
-      component: SearchView
+      path: '/account',
+      name: 'account',
+      component: AccountView
     },
     {
-      path: '/location',
-      name: 'location',
-      component: LocationView
+      path: '/help',
+      name: 'help',
+      component: HelpView
+    },
+    {
+      path: '/panier',
+      name: 'panier',
+      component: PanierView
     }
   ]
 })

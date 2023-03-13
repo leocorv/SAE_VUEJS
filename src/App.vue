@@ -1,15 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import FooterVue from './components/Footer.vue';
 import SearchBar from './components/SearchBar.vue';
-import Footer from './components/Footer.vue';
 </script>
 
 <template>
   <SearchBar />
   
 
-  <Footer />
   <RouterView />
 
   <footer>
