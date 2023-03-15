@@ -1,8 +1,8 @@
 <template>
-    <div id="register" class="text-center flex-col items-center mb-8 flex">
-    <h1 class="text-5xl font-semibold">S'enregistrer</h1>
-    <div class="inline-block justify-around text-center">
-        <div class="p-3 m-4 text-center items-center border-gray-500/10 border-2 border-solid rounded-3xl shadow-lg min-w-full w-80">
+<div id="register" class="text-center flex flex-col items-center mb-8">
+    <h1 class="text-5xl font-semibold mb-8">S'enregistrer</h1>
+    <div class="block justify-around text-center w-full max-w-md">
+        <div class="p-3 m-4 text-center items-center border-gray-500/10 border-2 border-solid rounded-3xl shadow-lg">
             <h2 class="text-3xl font-semibold">Par adresse mail</h2>
             <form method="post" action="#">
                 <div class="pt-4">
@@ -17,11 +17,17 @@
                         <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password">
                     </div>
                 </div>
-                <div>
-                    <button type="submit" class=" rounded-full">S'enregistrer</button>
+                <div class="pt-4">
+                    <button type="submit" class="rounded-full">S'enregistrer</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 </template>
+
+
+<script>
+import { ref } from 'vue';
+</script>
