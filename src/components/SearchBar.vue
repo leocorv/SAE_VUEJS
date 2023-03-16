@@ -1,30 +1,30 @@
 <template>
-    <div class="flex justify-between pt-4 pb-3 border-b-2 border-yellow-900 dark:bg-gray-800 border-b-0">
+    <div class="flex justify-between pt-4 pb-3 border-b-2 border-yellow-900 dark:bg-gray-800 dark:border-b-0">
         <div class="text-left align-left pl-4">
           <a href="/">
             <img class="h-auto w-72 dark:rounded-md" src="/src/assets/miliboo_logo.png" alt="Logo miliboo" >
           </a>
           </div>
-        <div class="search-container">
+        <div class="search-container bg-gray-200 dark:bg-gray-500">
             <img src="/src/assets/loupe.png" alt="Loupe" @click="search()">
             <input type="text" v-model="searchTerm" placeholder="Rechercher..." @keydown.enter="search()">
         </div>
         <div class="flexbox relative w-20 img_nav">
           <a href="/account">
             <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/logo_user.png">
-            <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Compte</div>
+            <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white dark:font-semibold dark:contrast-50">Compte</div>
           </a>
         </div>
         <div class="flexbox relative w-20 img_nav">
           <a href="/boutique">
             <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/boutique.png">
-            <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Boutique</div>
+            <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white dark:font-semibold dark:contrast-50">Boutique</div>
           </a>    
         </div>
         <div class="flexbox mr-12 relative w-20 img_nav">
           <a href="/panier">
             <img class="block mt-4 w-14 text-center image dark:invert contrast-50"  src="/src/assets/caddie.png">
-            <div class="absolute ml-3 w-auto text-left opacity-0 font-bold transition-all text dark:text-white font-semibold contrast-50">Panier</div>
+            <div class="absolute ml-3 w-auto text-left opacity-0 font-bold transition-all text dark:text-white dark:font-semibold dark:contrast-50">Panier</div>
           </a>
         </div>
         <!-- <div class="flexbox relative w-20 img_nav">
@@ -74,7 +74,6 @@
 .search-container {
   display: flex;
   align-items: center;
-  background-color: #f1f1f1;
   border-radius: 20px;
   margin: 0.7rem;
   padding-right: 1rem;

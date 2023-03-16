@@ -17,12 +17,12 @@
                         <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="fname" type="text" name="fname" value required autofocus>
                     </div>
                 </div>
-                <div class="pt-4">
+                <!-- <div class="pt-4">
                     <label>Deuxième prénom</label>
                     <div>
                         <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="sfname" type="text" name="sfname" value autofocus>
                     </div>
-                </div>
+                </div> -->
                 <div class="pt-4">
                     <label>E-mail *</label>
                     <div>

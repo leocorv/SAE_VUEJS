@@ -28,10 +28,12 @@
                 </div>
             </form>
             <hr class="mt-5 border-gray-400 ">
-            <div id="gSignInWrapper">
-              <span class="label">Sign in with:</span>
-              <div id="customBtn" class="customGPlusSignIn">
+            <div class="mt-5">
+              <span class="label">Se connecter avec : </span>
+              <br>
+              <div class="mt-2 customBtn customGPlusSignIn inline-block bg-blue-600 text-gray-700 w-48 rounded-md border-solid border-gray-400 shadow-lg whitespace-nowrap transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-30">
                 <span class="icon"></span>
+                <span class="text-xl">|</span>
                 <span class="buttonText">Google</span>
               </div>
             </div>
@@ -84,17 +86,11 @@ export default {
   transform: translateX(0)
 }
 
-#customBtn {
-  display: inline-block;
-  background: white;
-  color: #444;
-  width: 190px;
-  border-radius: 5px;
+.customBtn {
   border: thin solid #888;
   box-shadow: 1px 1px 1px grey;
-  white-space: nowrap;
 }
-#customBtn:hover {
+.customBtn:hover {
   cursor: pointer;
 }
 span.label {
@@ -102,10 +98,10 @@ span.label {
   font-weight: normal;
 }
 span.icon {
-  /* background: image('../../assets/google-logo.png') transparent 5px 50% no-repeat; */
-  background-image: url("../../assets/google-logo.png");
+  background: url('../../assets/google-logo.png') transparent 5px 50% no-repeat;
   display: inline-block;
   vertical-align: middle;
+  border-radius: 24px;
   width: 42px;
   height: 42px;
 }
@@ -118,6 +114,8 @@ span.buttonText {
   font-weight: bold;
   /* Use the Roboto font that is loaded in the <head> */
   font-family: 'Roboto', sans-serif;
+  user-select: none;
+  color:aliceblue;
 }
 
 </style>
