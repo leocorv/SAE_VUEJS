@@ -1,5 +1,5 @@
 <template>
-<footer class="p-4 bg-gray-300 sm:p-6 border-t-2 border-yellow-900 dark:bg-gray-900">
+<footer class="p-4 bg-gray-300 sm:p-6 border-t-2 border-yellow-900 dark:bg-gray-900 dark:border-none">
     <div class="md:justify-between">
         <div class="grid grid-cols-2 gap-8 text-center sm:gap-6 sm:grid-cols-3">
             <div>

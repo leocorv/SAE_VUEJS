@@ -5,37 +5,23 @@
     <div class="block justify-around text-center w-full max-w-md">
       <div class="px-10 py-4 m-4 text-center items-center border-gray-500/10 border-2 border-solid rounded-3xl shadow-lg">
             <!-- <h2 class="text-3xl font-semibold">Par adresse mail</h2> -->
-<<<<<<< HEAD
             <form @submit.prevent="onSubmit">
                 <div class="pt-2">
                     <label>E-mail</label>
                     <div>
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" value required autocomplete="email" autofocus v-model="user.email">
-=======
-            <form method="post" action="#">
-                <div class="pt-2">
-                    <label>E-mail</label>
-                    <div>
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" value required autocomplete="email" autofocus>
->>>>>>> 70b805be6c6ea090a5f2ee5fbdfe447f25c91888
+                        <input ref="email" class=" peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" value required autocomplete="email" autofocus v-model="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Doit être de ce format : mail@domaine.code">
                     </div>
                 </div>
                 <div class="pt-4">
                     <label>Mot de passe</label>
                     <div>
-<<<<<<< HEAD
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password"  v-model="user.password">
+                        <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password"  v-model="user.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères">
+                        
                     </div>
                 </div>
+                <span id="error_span" class=" text-sm hidden text-red-600">Veuillez saisir correctement votre adresse mail ou votre mot de passe.</span>
                 <div>
                     <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" >
-=======
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password">
-                    </div>
-                </div>
-                <div>
-                    <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" @submit.prevent="login">
->>>>>>> 70b805be6c6ea090a5f2ee5fbdfe447f25c91888
                       <span class=" absolute inset-0 bg-gray-200 "></span>
                       <span class=" rounded-full absolute inset-0 flex justify-center items-center font-bold"> 
                         Connexion
@@ -63,8 +49,6 @@
 <script>
 import { accountService } from '@/_services';
 import { useAuthStore } from '../../store.js';
-// import { ref } from 'vue';
-// import axios from 'axios';
 
 export default {
   name: 'Login',
@@ -82,48 +66,19 @@ export default {
         const res = await accountService.login(this.user);
         await accountService.saveToken(res.data.token);
         useAuthStore().setIsConnected(accountService.isLogged());
-        console.log(useAuthStore().isConnected)
         this.$router.push('/account');
-      } catch (error) {
-        console.log(error);
-        this.errorMessage = 'Failed to login';
+      } catch (e) {
+        document.getElementById('error_span').classList.remove('hidden');
       }
     }
   }
-} 
-  //   login(){
-  //     accountService.login(this.user)
-  //       .then(res => {
-  //         // console.log(res.data.token)
-  //         accountService.saveToken(res.data.token).then(() => {
-  //           useAuthStore().setIsConnected(accountService.isLogged());
-  //           console.log(accountService.isLogged());
-  //         })
-  //       })
-  //       .catch(err => console.log(err))
-  //   }
+}
 
-  // setup() {
-  //   const store = useAuthStore();
-  //   const email = ref('');
-  //   const password = ref('');
+window.addEventListener('unhandledrejection', (event) => {
+  // Prevent the default handling (error in console)
+  event.preventDefault();
+});
 
-  //   const login = async () => {
-  //     try {
-  //       const response = await axios.post('https://localhost:7014/api/login', { email, password });
-  //       if (response.data.success) {
-  //         store.setIsConnected(true)
-  //       }
-  //     }
-  //     catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   return {
-  //     login
-  //   };
-  // }
 </script>
 
 
@@ -167,8 +122,4 @@ span.buttonText {
   user-select: none;
   color:aliceblue;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 70b805be6c6ea090a5f2ee5fbdfe447f25c91888
 </style>
