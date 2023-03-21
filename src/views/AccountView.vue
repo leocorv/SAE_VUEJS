@@ -1,6 +1,6 @@
 <script>
 
-import { useStore } from '../store.js';
+import { useAuthStore } from '../store.js';
 
 import LoginView from '../components/Login_Register/LoginView.vue';
 import Toggle_Log_Reg from '../components/Login_Register/Toggle_Log_Reg.vue'
@@ -10,7 +10,7 @@ import Information_Account from '../components/account/Account_information.vue'
 export default {
   name: 'AccountView',
   setup() {
-    const store = useStore();
+    const store = useAuthStore();
     const isConnected = store.isConnected;
     return {
       isConnected
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <template>
-  <div v-if="!isConnected" class="flex flex-col items-center mb-8 p-5 font-sans w-full h-full">
+  <div v-if="isConnected === false" class="flex flex-col items-center mb-8 p-5 font-sans w-full h-full">
     <Toggle_Log_Reg v-model="checked" />
     <LoginView v-if="!checked"/>
     <RegisterView v-if="checked"/>
