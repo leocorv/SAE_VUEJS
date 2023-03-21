@@ -5,7 +5,7 @@
             <img class="h-auto w-72 dark:rounded-md" src="/src/assets/miliboo_logo.png" alt="Logo miliboo" >
           </a>
           </div>
-        <div class="search-container">
+        <div class="search-container bg-gray-200 dark:bg-gray-500">
             <img src="/src/assets/loupe.png" alt="Loupe" @click="search()">
             <input type="text" v-model="searchTerm" placeholder="Rechercher..." @keydown.enter="search()">
         </div>
@@ -74,7 +74,6 @@
 .search-container {
   display: flex;
   align-items: center;
-  background-color: #f1f1f1;
   border-radius: 20px;
   margin: 0.7rem;
   padding-right: 1rem;

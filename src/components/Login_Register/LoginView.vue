@@ -5,21 +5,37 @@
     <div class="block justify-around text-center w-full max-w-md">
       <div class="px-10 py-4 m-4 text-center items-center border-gray-500/10 border-2 border-solid rounded-3xl shadow-lg">
             <!-- <h2 class="text-3xl font-semibold">Par adresse mail</h2> -->
+<<<<<<< HEAD
             <form @submit.prevent="onSubmit">
                 <div class="pt-2">
                     <label>E-mail</label>
                     <div>
                         <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" value required autocomplete="email" autofocus v-model="user.email">
+=======
+            <form method="post" action="#">
+                <div class="pt-2">
+                    <label>E-mail</label>
+                    <div>
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" value required autocomplete="email" autofocus>
+>>>>>>> 70b805be6c6ea090a5f2ee5fbdfe447f25c91888
                     </div>
                 </div>
                 <div class="pt-4">
                     <label>Mot de passe</label>
                     <div>
+<<<<<<< HEAD
                         <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password"  v-model="user.password">
                     </div>
                 </div>
                 <div>
                     <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" >
+=======
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password">
+                    </div>
+                </div>
+                <div>
+                    <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" @submit.prevent="login">
+>>>>>>> 70b805be6c6ea090a5f2ee5fbdfe447f25c91888
                       <span class=" absolute inset-0 bg-gray-200 "></span>
                       <span class=" rounded-full absolute inset-0 flex justify-center items-center font-bold"> 
                         Connexion
@@ -33,7 +49,7 @@
               <span class="label">Se connecter avec : </span>
               <br>
               <div class="mt-2 customBtn customGPlusSignIn inline-block bg-blue-600 text-gray-700 w-48 rounded-md border-solid border-gray-400 shadow-lg whitespace-nowrap transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-30">
-                <!-- <span class="icon"></span> -->
+                <span class="icon"></span>
                 <span class="text-xl">|</span>
                 <span class="buttonText">Google</span>
               </div>
@@ -151,4 +167,8 @@ span.buttonText {
   user-select: none;
   color:aliceblue;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70b805be6c6ea090a5f2ee5fbdfe447f25c91888
 </style>
