@@ -1,6 +1,6 @@
 <template>
 <div class="flex flex-grow">
-    <span class="text-3xl font-medium text-gray-900 dark:text-gray-600 mr-3 mb-2">Se connecter</span>
+    <span class="text-3xl font-medium text-gray-900 dark:text-gray-600 dark:mr-3 dark:mb-2">Se connecter</span>
     <div>
         <label class="relative inline-flex items-center mr-5 cursor-pointer">
             <input id="toggle" type="checkbox" v-model="isChecked" value="" class="sr-only peer">
