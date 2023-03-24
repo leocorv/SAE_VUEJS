@@ -21,7 +21,6 @@ export default {
     LoginView,
     Toggle_Log_Reg,
     RegisterView,
-    Information_Account  
   },
   data() {
     return {
