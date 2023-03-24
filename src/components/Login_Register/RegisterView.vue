@@ -32,13 +32,13 @@
                 <div class="pt-4">
                     <label>Mot de passe *</label>
                     <div>
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required>
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password_register" type="password" name="password" value required>
                     </div>
                 </div>
                 <div class="pt-4">
                     <label>Confirmer le mot de passe *</label>
                     <div>
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required>
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password_second" type="password" name="password" value required>
                     </div>
                 </div>
                 <div>

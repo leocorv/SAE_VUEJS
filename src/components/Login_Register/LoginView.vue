@@ -9,14 +9,14 @@
                 <div class="pt-2">
                     <label>E-mail</label>
                     <div>
-                        <input ref="email" class=" peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" value required autocomplete="email" autofocus v-model="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Doit être de ce format : mail@domaine.code">
+                        <input ref="email" class=" peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" value required autocomplete="email" autofocus v-model="user.Mail" pattern="^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$" title="Doit être de ce format : mail@domaine.code">
                     </div>
                 </div>
                 <div class="pt-4">
                     <label>Mot de passe</label>
                     <div>
-                        <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password"  v-model="user.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères">
-                        
+                        <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password"  v-model="user.Password"  title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères">
+                        <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
                     </div>
                 </div>
                 <span id="error_span" class=" text-sm hidden text-red-600">Veuillez saisir correctement votre adresse mail ou votre mot de passe.</span>
@@ -55,8 +55,8 @@ export default {
   data(){
     return {
       user: {
-        email: '',
-        password: ''
+        Mail: '',
+        Password: ''
       }
     }
   },
@@ -64,8 +64,12 @@ export default {
     async onSubmit() {
       try {
         const res = await accountService.login(this.user);
-        await accountService.saveToken(res.data.token);
-        useAuthStore().setIsConnected(accountService.isLogged());
+        console.log(res.data.token.result);
+        await accountService.saveToken(res.data.token.result);
+        console.log(useAuthStore().isConnected);
+        this.$store.commit('setIsConnected', true);
+        console.log(useAuthStore().isConnected);
+        this.$router.push('/');
         this.$router.push('/account');
       } catch (e) {
         document.getElementById('error_span').classList.remove('hidden');

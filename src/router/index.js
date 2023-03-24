@@ -4,6 +4,7 @@ import BoutiqueView from '../views/BoutiqueView.vue'
 import AccountView from '../views/AccountView.vue'
 import HelpView from '../views/AideView.vue'
 import PanierView from '../views/PanierView.vue'
+import ProfilView from '../views/ProfilView.vue'
 
 
 const router = createRouter({
@@ -22,7 +23,26 @@ const router = createRouter({
     {
       path: '/account',
       name: 'account',
-      component: AccountView
+      component: AccountView,
+      beforeEnter: (to, from, next) => {
+        if (isConnected) {
+          next()
+        } else {
+          next('/profil')
+        }
+      }
+    },
+    {
+      path: '/profil',
+      name: 'Profil',
+      component: ProfilView,
+      beforeEnter: (to, from, next) => {
+        if (!isConnected) {
+          next()
+        } else {
+          next('/account')
+        }
+      }
     },
     {
       path: '/help',
