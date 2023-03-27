@@ -1,0 +1,10 @@
+faire localstorage pour stocker les variantes
+
+afficher résumés produits
+
+faire tris
+
+optimiser et régler warnings
+
+gérer erreurs
+

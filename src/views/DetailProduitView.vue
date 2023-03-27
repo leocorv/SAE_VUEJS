@@ -180,19 +180,25 @@ export default {
                         </div>
                         <!-- couleurs -->
                         <div class="flex flex-row gap-2">
-                            <p class=" font-semibold">Couleurs disponibles : </p>
+                            <div class=" flex flex-wrap gap-x-2 font-semibold h-min w-3/5">
+                                <p>Couleurs </p>
+                                <div class="flex flex-row gap-x-1">
+                                    <p>disponibles</p>
+                                    <p>:</p>
+                                </div>
+                            </div>
                             <div v-if="couleursProduit != null"
-                                class="flex flex-row gap-2">
+                                class="flex flex-wrap gap-2">
                                 <div v-for="(couleur, index) in this.couleursProduit"
                                     @click="$event => changerVariante(index)">
-                                    <div v-if="index==indexVariante" class="border border-black rounded-full w-8 h-8 flex place-content-center items-center
+                                    <div v-if="index==indexVariante" class=" border-2 border-black rounded-full w-8 h-8 flex place-content-center items-center
                                         hover:cursor-pointer"
                                         :style="{'background-color':(couleur.codeHexa)}">
                                         <p class=" text-xs"></p>
                                     </div>
-                                    <div v-else class="border border-black rounded-full w-8 h-8 flex place-content-center items-center
+                                    <div v-else class=" border border-gray-300 rounded-full w-8 h-8 flex place-content-center items-center
                                         hover:cursor-pointer"
-                                        :style="{'border': 'solid 1px' +(couleur.codeHexa),'background-color':(couleur.codeHexa)}">
+                                        :style="{'background-color':(couleur.codeHexa)}">
                                     
                                     </div>
                                 </div>

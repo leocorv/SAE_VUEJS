@@ -19,6 +19,7 @@ export default {
         pageActuelleProduit: 1,
         //nb pages
         nbPagesProduit: 1,
+
       }
     },
     methods: {
@@ -26,17 +27,56 @@ export default {
             this.pageActuelleProduit = page
             this.loadPageProduit(page)
         },
+        //load la page n 'numpage' et la foutre dans produits[]
         loadPageProduit(numPage){
-            //load la page n 'numpage' et la foutre dans produits[]
-            fetch("https://localhost:7140/api/Produits/GetByAllByPage?page="+numPage)
+            fetch('https://localhost:7140/api/Produits/GetAllByAllFilters?page='+numPage+'&categorieId='+this.idCategorie)
                 .then(response => response.json())
                 .then((data) => {    
                     this.produits = data;
+                    
+                    //si on a bien des data retournées
+                    if (this.produits!=null){
+                        this.produits.forEach((produit,index) => {
+                            //on rajoute à chaque pdt une liste de variantes
+                            this.loadVariantesProduit(produit,index)
+                        })
+                    }
+                })
+                .catch((e)=> {
+                    console.log("erreur"+e)
+                })
+        },
+        //load les variantes de chaque produit
+        loadVariantesProduit(produit,index){
+            fetch('https://localhost:7140/api/Variantes/GetAllByProduit?produitId='+produit.idProduit)
+                .then(response => response.json())
+                .then((data) => {    
+                    //on donne la liste des variantes au produit [index]
+                    this.produits[index].variantes = data;
+
+                    //on rajoute à chaque pdt une liste de photos
+                    this.loadPhotoPresentationProduit(produit.variantes[0],index)
+                })
+                .catch((e)=> {
+                    console.log("erreur"+e)
+                })
+        },
+        //load une photo de présentation d'un produit à partir d'une de ses variantes
+        loadPhotoPresentationProduit(variante,indexProduit){
+            fetch('https://localhost:7140/api/Photo/GetAllPhotosByVariante?varianteId='+variante.idVariante)
+                .then(response => response.json())
+                .then((data) => {    
+                    //on donne la liste de photos au produit [index]
+                    this.produits[indexProduit].photos = data;
+                })
+                .catch((e)=> {
+                    console.log("erreur"+e)
                 })
         }
+
     },   
     mounted() {
-        //il faudrait ici demander à l'api de load la page n1
+        // load le nombre de pages 
         fetch('https://localhost:7140/api/Produits/GetNumberPages')
             .then(response => response.json())
             .then((data) => {    
@@ -45,15 +85,8 @@ export default {
             .catch((e)=> {
                 console.log("erreur"+e)
             })
-        // nbPagesProduit
-        fetch('https://localhost:7140/api/Produits/GetAllByAllFilters?page=1&categorieId='+this.idCategorie)
-            .then(response => response.json())
-            .then((data) => {    
-                this.produits = data;
-            })
-            .catch((e)=> {
-                console.log("erreur"+e)
-            })
+        // load de la page n1
+        this.loadPageProduit(1)
     }
 }
 </script>

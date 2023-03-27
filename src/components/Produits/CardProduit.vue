@@ -9,11 +9,13 @@
             <p class=" text-2xl h-28 items-center flex">Cette page est vide ...</p>
         </div>
         <!-- on boucle sur le nombre de produit pour tous les affichers -->
-        <div v-else v-for="bien in this.produits" :key="this.produits.idProduit" class="duration-75 mx-4 my-4 ease-in md:ease-in hover:outline hover:outline-violet-600 hover:outline-4 h-96 w-80 bg-base-100 shadow-xl rounded-xl bg-gray-200" >
-            <div class="h-3/5 bg-cyan-400 rounded-t-xl">IMAGE</div>
-            <div class="h-2/5 card-body px-3 relative">
+        <div v-else v-for="bien in this.produits" :key="this.produits.idProduit" class=" duration-75 mx-4 my-4 ease-in md:ease-in hover:outline hover:outline-violet-600 hover:outline-4 h-96 w-80 bg-base-100 shadow-xl rounded-xl bg-gray-200" >
+            <div class=" rounded-t-xl">
+                <img :src="bien.photos[0]" alt="imagePresentation">
+            </div>
+            <div class=" block card-body px-3 relative">
                 <!-- libelle -->
-                <h2 class="text-indigo-900 text-xl font-semibold">{{bien.libelle}}</h2>
+                <h2 class="text-indigo-900 text-xl font-semibold pb-4">{{bien.libelle}}</h2>
                 <!-- afficher prix -->
                 <p class="text-sm">afficher prix todo </p>
                 <!-- afficher avis -->
