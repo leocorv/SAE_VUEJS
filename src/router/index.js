@@ -6,6 +6,8 @@ import AccountView from '../views/AccountView.vue'
 import HelpView from '../views/AideView.vue'
 import PanierView from '../views/PanierView.vue'
 import ProfilView from '../views/ProfilView.vue'
+import CategorieView from '../views/CategorieView.vue'
+import DetailProduitView from '../views/DetailProduitView.vue'
 
 
 const router = createRouter({
@@ -17,9 +19,16 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/boutique',
-      name: 'boutique',
-      component: BoutiqueView
+      path: '/categorie/:idCategorie',
+      name: 'categorie',
+      component: CategorieView,
+      props:true
+    },
+    {
+      path: '/description/:idProduit',
+      name: 'description',
+      component: DetailProduitView,
+      props:true
     },
     {
       path: '/account',
