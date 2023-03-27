@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
+import { useAuthStore } from './store.js'
+import ConnectionPlugin from './plugins/connection.js';
 
 import './assets/main.css'
 
@@ -9,5 +11,12 @@ const app = createApp(App)
 
 app.use(router)
 app.use(createPinia())
+
+// Installation du plugin de surveillance de la connexion (token present ou non)
+app.use(ConnectionPlugin);
+
+// Appel de la méthode startMonitoringConnection pour surveiller la connexion (token present ou non)
+const authStore = useAuthStore();
+authStore.startMonitoringConnection();
 
 app.mount('#app')

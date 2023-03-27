@@ -41,6 +41,12 @@
                         <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password_second" type="password" name="password" value required>
                     </div>
                 </div>
+                <div class="pt-4">
+                    <div class=" inline-block">
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="News" type="checkbox" name="News" value required>
+                        <label>S'abonner à la newsletter</label>
+                    </div>
+                </div>
                 <div>
                     <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" @submit.prevent="login">
                       <span class=" absolute inset-0 bg-gray-200 "></span>

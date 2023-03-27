@@ -1,5 +1,4 @@
 <template>       
-
 <div id="connexion" class="text-center flex flex-col items-center mb-8">
     <h1 class="text-5xl font-semibold mb-8">Connexion</h1>
     <div class="block justify-around text-center w-full max-w-md">
@@ -45,47 +44,44 @@
 </div>
 
 </template>
-
 <script>
-import { accountService } from '@/_services';
 import { useAuthStore } from '../../store.js';
+import { accountService } from '@/_services';
+import router from '../../router/index.js'
 
 export default {
-  name: 'Login',
-  data(){
+  name: 'LoginView',
+  data() {
     return {
       user: {
         Mail: '',
         Password: ''
       }
-    }
+    };
   },
   methods: {
     async onSubmit() {
       try {
         const res = await accountService.login(this.user);
-        console.log(res.data.token.result);
+        // console.log(res.data.token.result);
         await accountService.saveToken(res.data.token.result);
-        console.log(useAuthStore().isConnected);
-        this.$store.commit('setIsConnected', true);
-        console.log(useAuthStore().isConnected);
-        this.$router.push('/');
-        this.$router.push('/account');
+
+        // console.log(useAuthStore().isConnected);
+        useAuthStore().isConnected = true;
+        // console.log(useAuthStore().isConnected);
+
+        // console.log(router.push('/profil'))
+        router.push('/myaccount');
+        location.reload()
+
       } catch (e) {
         document.getElementById('error_span').classList.remove('hidden');
+        console.log(e);
       }
     }
   }
-}
-
-window.addEventListener('unhandledrejection', (event) => {
-  // Prevent the default handling (error in console)
-  event.preventDefault();
-});
-
+};
 </script>
-
-
 <style>
 .btn2 span:first-child{
   transform: translateX(-101%);

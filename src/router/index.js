@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '../store.js'
 import HomeView from '../views/HomeView.vue'
 import BoutiqueView from '../views/BoutiqueView.vue'
 import AccountView from '../views/AccountView.vue'
@@ -25,19 +26,21 @@ const router = createRouter({
       name: 'account',
       component: AccountView,
       beforeEnter: (to, from, next) => {
-        if (isConnected) {
+        if (useAuthStore().isConnected == false) {
+          // console.log(useAuthStore().isConnected);
           next()
         } else {
-          next('/profil')
+          next('/myaccount')
         }
       }
     },
     {
-      path: '/profil',
+      path: '/myaccount',
       name: 'Profil',
       component: ProfilView,
       beforeEnter: (to, from, next) => {
-        if (!isConnected) {
+        if (useAuthStore().isConnected == true) {
+          // console.log(useAuthStore().isConnected)
           next()
         } else {
           next('/account')

@@ -26,11 +26,6 @@ export default {
     return {
       checked: false
     };
-  },
-  computed: {
-    isConnected() {
-      return this.$store.state.isConnected
-    }
   }
 }
 </script>

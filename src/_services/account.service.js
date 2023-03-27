@@ -6,7 +6,7 @@ let login = (credentials) => {
 }
 
 let logout = () => {
-    losalStorage.removeItem('token')
+    localStorage.removeItem('token')
 }
 
 let saveToken = (token) => {
