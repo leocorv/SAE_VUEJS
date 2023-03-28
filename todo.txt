@@ -8,3 +8,4 @@ optimiser et régler warnings
 
 gérer erreurs
 
+remonter en haut de page quand on change de page

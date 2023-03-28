@@ -156,7 +156,7 @@ export default {
                         <!-- description -->
                         <div class="flex flex-row gap-2">
                             <p class=" font-semibold">Description : </p>
-                            <p v-if="variantesProduit != null">{{variantesProduit[indexVariante].description}}</p>
+                            <p v-if="variantesProduit != null && variantesProduit.length!=0">{{variantesProduit[indexVariante].description}}</p>
                         </div>
                         <!-- hauteur pied -->
                         <div class="flex flex-row gap-2">
@@ -164,17 +164,17 @@ export default {
                             <p v-if="produit != null">{{produit.hauteurPieds}} cm</p>
                         </div>
                         <!-- prix -->
-                        <div v-if="variantesProduit != null && variantesProduit[indexVariante].promo==1" class="flex flex-row gap-2">
+                        <div v-if="variantesProduit != null && variantesProduit.length!=0  && variantesProduit[indexVariante].promo==1" class="flex flex-row gap-2">
                             <p class=" font-semibold">Prix : </p>
                             <p class="font-bold">{{variantesProduit[indexVariante].prix}} €</p>
                         </div>
                         <!-- prix EN PROMO -->
                         <div v-else class="flex flex-row gap-2">
                             <p class=" font-semibold">Prix : </p>
-                            <p v-if="variantesProduit != null" class="line-through text-red-700">
+                            <p v-if="variantesProduit != null && variantesProduit.length!=0 " class="line-through text-red-700">
                                 {{variantesProduit[indexVariante].prix}} €
                             </p>
-                            <p v-if="variantesProduit != null" class=" text-emerald-700  font-bold">
+                            <p v-if="variantesProduit != null && variantesProduit.length!=0" class=" text-emerald-700  font-bold">
                                 {{variantesProduit[indexVariante].prix*variantesProduit[indexVariante].promo}}                             €
                             </p>
                         </div>
@@ -212,13 +212,13 @@ export default {
                                 <p v-else class="ml-1 italic text-gray-900 dark:text-white text-xs"> aucune note</p>
                                 <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Rating star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                                 <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-                                <a href="#test" class="font-medium text-gray-900 underline hover:no-underline dark:text-white">{{ this.avisProduit.length }} avis</a>
+                                <a href="#avis" class="font-medium text-gray-900 underline hover:no-underline dark:text-white">{{ this.avisProduit.length }} avis</a>
                             </div>
                         </div>
                         <!-- quantité -->
                         <div class="flex flex-row gap-4">
                             <p class=" font-semibold">Quantité : </p>
-                            <input v-if="variantesProduit!=null" 
+                            <input v-if="variantesProduit!=null && variantesProduit.length!=0" 
                                 class="border border-black w-14 h-7 px-1 text-base rounded-md"
                                 v-on:focusout="$event=> {
                                     //si on écrit manuellement une valeur>stock
@@ -245,7 +245,7 @@ export default {
                 </div>
             </div>
         </div>
-        <div class="mx-20 my-16 pt-4 " id="test">
+        <div class="mx-20 my-16 pt-4 " id="avis">
             <!-- avis -->
             <div class="flex flex-col gap-2 border-2 border-black p-10" >
                 <div class=" font-semibold mb-5 text-3xl gap-3 place-items-center">

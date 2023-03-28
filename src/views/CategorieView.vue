@@ -106,7 +106,7 @@ export default {
     <!-- mes cards de produits -->
     <!-- il lui faut la liste des produits à afficher (! cette liste change dynamiquement, quand on change de page par exemple)-->
     <!-- la disposition et l'affichage sont gérés par cette vue -->
-    <div>
+    <div v-if="this.produits!=null && this.produits.length!=0">
         <CardProduit :produits="produits"/>
     </div>
     

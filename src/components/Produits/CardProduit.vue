@@ -10,9 +10,12 @@
         </div>
         <!-- on boucle sur le nombre de produit pour tous les affichers -->
         <div v-else v-for="bien in this.produits" :key="this.produits.idProduit" class=" duration-75 mx-4 my-4 ease-in md:ease-in hover:outline hover:outline-violet-600 hover:outline-4 h-96 w-80 bg-base-100 shadow-xl rounded-xl bg-gray-200" >
-            <div class=" rounded-t-xl">
-                <img :src="bien.photos[0]" alt="imagePresentation">
+            <div  class="h-48 rounded-t-xl">
+                <img v-if="bien.photos!=null"
+                    :src="bien.photos[0]" alt="imagePresentation">
+                <img v-else src="" alt="imagePresentation">
             </div>
+
             <div class=" block card-body px-3 relative">
                 <!-- libelle -->
                 <h2 class="text-indigo-900 text-xl font-semibold pb-4">{{bien.libelle}}</h2>
@@ -28,7 +31,7 @@
 
                 <!-- boutons pour aller au détail / payer -->
                 <div class="grid bottom-0 ">
-                    <router-link :to="{name: 'description', params:{idProduit: bien.idProduit}}">
+                    <router-link :to="'/description/'+bien.idProduit">
                         <button  class="btn-outline px-1 absolute bottom-3 right-3 border-2 text-violet-600 border-violet-600 transition-all hover:bg-violet-600 font-semibold hover:text-white rounded text-base w-25 h-10">
                             Plus d'infos
                         </button>
