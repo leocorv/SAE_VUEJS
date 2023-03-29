@@ -51,7 +51,12 @@ export default {
             //fetch des photos de la nouvelle variante
             this.loadVarianteById(this.variantesProduit[this.indexVariante].idVariante)
 
-        }
+        },
+        //retour page arrière
+        retour() {
+            console.log("back")
+            this.$router.back()
+        },
 
     },   
     mounted() {
@@ -134,10 +139,9 @@ export default {
 <template>
     <div class="scroll-smooth">
 
-        <div>
-            <!-- TEST -->
-            <div class=" flex place-content-center">
-                <p class="text-2xl">{{ }}</p>
+        <div class="">
+            <div class=" ml-5 mt-5 text-lg border border-gray-600 rounded-xl w-16 h-10 flex justify-center text-center">
+                <button @click="$event => retour()">Retour</button>
             </div>
     
             <div class="flex flex-row gap-20 mt-5">
@@ -284,3 +288,9 @@ export default {
     </div>
 </template> 
 
+<style scoped>
+*{
+    scroll-behavior: smooth;
+}
+
+</style>

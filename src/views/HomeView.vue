@@ -1,15 +1,33 @@
 <script setup>
-  import { categoriesStore } from "../stores/categories.js"
+  import { categorieService } from "../services"
 
-  const categoriePar = categoriesStore().list
-  console.log(categoriePar)
 </script>
+<script>
+export default {
+  data() {
+    return {
+      categoriePar:null,
+    };
+  },
+  methods: {
+    //connexion
+    getCat() {
+      categorieService.getCategories().then(response => {
+        this.categoriePar = response 
+      })
+    },
+  },
+  mounted() {
+    this.getCat()
+  },
 
+}
+</script>
 
 <template>
 
   <!-- on verifie si on a bien un retour de l'api -->
-  <div v-if="categoriePar != null && categoriePar.length != 0"
+  <div v-if="this.categoriePar != null && this.categoriePar.length != 0"
     class="flex flex-wrap  py-5 px-5">
 
     <!-- boucle sur les categories parents -->
