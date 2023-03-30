@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../store.js'
 import HomeView from '../views/HomeView.vue'
-import BoutiqueView from '../views/BoutiqueView.vue'
 import AccountView from '../views/AccountView.vue'
 import HelpView from '../views/AideView.vue'
 import PanierView from '../views/PanierView.vue'

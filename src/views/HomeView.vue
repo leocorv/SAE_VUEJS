@@ -13,7 +13,7 @@ export default {
     //connexion
     getCat() {
       categorieService.getCategories().then(response => {
-        this.categoriePar = response 
+        this.categoriePar = response
       })
     },
   },

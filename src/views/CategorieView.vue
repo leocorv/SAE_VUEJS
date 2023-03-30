@@ -4,22 +4,42 @@ import NavTriProduit from '../components/Produits/Tri/NavTriProduit.vue'
 import CardProduit from '../components/Produits/CardProduit.vue';
 import NavPage from '../components/Produits/NavigationBetweenPages.vue';
 
-import { produitsCategorieStore } from "../stores/produitsCategorie.js"
+import { produitsService } from "../services"
 
-//liste de produits
-const produits = produitsCategorieStore().list
-
+//properties
 const props = defineProps({
     //id categorie
     idCategorie: {required: true}
 })
 
-//pageactuelle
-const pageActuelleProduit = 1
-//nb pages
-const nbPagesProduit = 1
 
 </script>
+<script>
+export default {
+  data() {
+    return {
+        //list produits
+        produits:null,
+        //pages
+        nbPagesProduits:null,
+        pageActuelleProduit:1,
+    };
+  },
+  methods: {
+    //connexion
+    getPdt() {
+        produitsService.getProduits(1).then(response => {
+        this.produits = response
+      })
+    },
+  },
+  mounted() {
+    this.getPdt()
+  },
+
+}
+</script>
+
 
 
 <template>
