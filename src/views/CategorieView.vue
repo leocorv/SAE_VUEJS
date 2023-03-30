@@ -4,7 +4,7 @@ import NavTriProduit from '../components/Produits/Tri/NavTriProduit.vue'
 import CardProduit from '../components/Produits/CardProduit.vue';
 import NavPage from '../components/Produits/NavigationBetweenPages.vue';
 
-import { produitsService } from "../services"
+import { produitsService } from "../_services"
 
 //properties
 const props = defineProps({
@@ -18,23 +18,41 @@ const props = defineProps({
 export default {
   data() {
     return {
-        //list produits
+        //produits
         produits:null,
         //pages
         nbPagesProduits:null,
         pageActuelleProduit:1,
+        //tri/filtre
+        couleurFilter: [],
+        prixMinFilter:null,
+        prixMaxFilter:null,
+        ordreTri:null,
     };
   },
   methods: {
-    //connexion
+    //récupère le nombre de pages
+    getNbPages() {
+      produitsService.getNbPages(this.idCategorie).then(response => {
+        this.nbPagesProduits = response
+      })
+    },
+    //récupère tt les produits à afficher
     getPdt() {
-        produitsService.getProduits(1).then(response => {
+      produitsService.getProduits(this.idCategorie,this.pageActuelleProduit).then(response => {
         this.produits = response
       })
     },
+    //change de page
+    changePageProduit(page) {
+      this.produits=null //on vire tt les produits      
+      this.pageActuelleProduit = page //on change la page actuelle
+      this.getPdt()//on met à jour la liste de produits
+    }
   },
   mounted() {
-    this.getPdt()
+    this.getNbPages() //get nb pages
+    this.getPdt() //get produits
   },
 
 }
@@ -70,9 +88,8 @@ export default {
 <!-- La vue qui permet de changer les pages -->
 <!-- la méthode utilisée prend en paramètre la nouvelle page -->
 <!-- il faut lui donner la page actuelle et le nombre de page à afficher -->
-<!-- J'ARRIVE PAS A METTRE MON FOOTER EN BAS PLZ HELP (oui c une div mais c un peu un footer) -->
 <div class="mt-20">
-    <NavPage  @changePageProduit="changePageProduit" :pageActuelle="pageActuelleProduit" :nbPages="nbPagesProduit"/>
+    <NavPage  @changePageProduit="changePageProduit" :pageActuelle="pageActuelleProduit" :nbPages="nbPagesProduits"/>
 </div>
 
 </template>

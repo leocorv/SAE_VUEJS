@@ -4,8 +4,8 @@
 
         <div class="flex flex-wrap place-content-center" >
             <!-- 1 div = 1 bouton -->
-            <div v-for="nbPage in this.nbPages" :key="this.nbPages" >
-                
+            <div v-for="nbPage in this.nbPages" >
+                <p>{{nbPage}}</p>
                 <!-- BOUTON ACTUEL (a colorier en x couleur)-->
                 <button v-if="nbPage==this.pageActuelle"
                 class="border-l-2 border-y-2 rounded px-1 border-violet-600 transition-all bg-violet-600 font-semibold text-white  w-12 h-12" >
@@ -64,7 +64,9 @@ export default {
         changePage(page) {
             this.$emit('changePageProduit',page)
         }
-    }   
+    },
+    mounted() {
+    },   
 }
 </script>
 

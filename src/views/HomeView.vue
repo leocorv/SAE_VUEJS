@@ -1,5 +1,5 @@
 <script setup>
-  import { categorieService } from "../services"
+  import { categorieService } from "../_services"
 
 </script>
 <script>

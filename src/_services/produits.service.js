@@ -2,16 +2,34 @@ import { ref, computed, reactive } from 'vue'
 import axios from 'axios'
 import localStorageService from './localStorage.service'
 
+//get le nb de pages
+let getNbPages = (idCategorie) => {
+    //on renvoie une promesse
+    return new Promise(function(resolve){
+        
+        var nbPages = reactive({})
 
-//get
-let getProduits = (idCategorie) => {
+        axios.get('https://localhost:7140/api/Produits/GetNumberPagesByAllFilters?categorieId='+idCategorie)
+            .then(response => {
+                nbPages = response.data
+                console.log("fetched nb pages")
+                resolve(nbPages)
+            })
+            .catch((e)=> {
+                console.log("erreur"+e)
+            })
+    })
+}
+
+//get produits de la page
+let getProduits = (idCategorie,numPage) => {
     
-    // //on renvoie une promesse
+    //on renvoie une promesse
     return new Promise(function(resolve){
         
         const list = reactive([])
 
-        axios.get('https://localhost:7140/api/Produits/GetAllByAllFilters?page=1&categorieId='+idCategorie)
+        axios.get('https://localhost:7140/api/Produits/GetAllByAllFilters?page='+numPage+'&categorieId='+idCategorie)
             .then(response => {
                 response.data.forEach(pdt => {
                     list.push(pdt)
@@ -68,5 +86,6 @@ let getProduits = (idCategorie) => {
 
 export const produitsService = {
     getProduits,
+    getNbPages,
 }
 

@@ -4,7 +4,7 @@
     </div>
 
     <!-- div contenant tt les cars -->    
-    <div class="flex flex-wrap mt-10 mx-20 place-content-around">
+    <div class="flex flex-wrap mt-10 mx-20 place-content-around z-0">
         <div v-if="this.produits==null || this.produits==[] || this.produits.length==0 ">
             <p class=" text-2xl h-28 items-center flex">Cette page est vide ...</p>
         </div>

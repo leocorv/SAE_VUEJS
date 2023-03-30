@@ -5,7 +5,7 @@
             <p>{{ title }} :</p>
             <p  :id="'fleche_tri'+title" class="absolute right-5 bottom-3 text-xl transition-all">^</p>
         </div>
-        <div v-if="!isPrix">
+        <div v-if="!isPrix" class="z-50">
             <div v-if="this.isClickedTri" class="p-1 border-2 absolute top-14 w-36 bg-gray-100 border-gray-600 text-black ">                   
                 <label v-for="element in this.elements"
                     class="relative inline-flex items-center cursor-pointer w-full">
@@ -13,7 +13,7 @@
                         type="checkbox" value="" class="sr-only peer">
                     <div class="w-8 h-4 bg-gray-300 rounded-full peer peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border peer-checked:after:border-gray-500  after:content-[''] after:absolute after:top-0.5 after:left-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600"></div>
                     <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 checked:text-4xl">
-                        {{ element }}
+                        {{ element.libelle }}
                     </span>
                 </label>
             </div>     
