@@ -49,6 +49,7 @@ import { useAuthStore } from '../../store.js';
 import { accountService } from '@/_services';
 import router from '../../router/index.js'
 
+
 export default {
   name: 'LoginView',
   data() {
@@ -69,14 +70,19 @@ export default {
         // console.log(useAuthStore().isConnected);
         useAuthStore().isConnected = true;
         // console.log(useAuthStore().isConnected);
-
+        
         // console.log(router.push('/profil'))
-        router.push('/myaccount');
-        location.reload()
+
+        var emailToken = accountService.getEmailFromToken()
+        // console.log(emailToken)
+        await accountService.getUserByEmail(emailToken)
+
+        await router.push('/myaccount');
+        await location.reload()
 
       } catch (e) {
         document.getElementById('error_span').classList.remove('hidden');
-        console.log(e);
+        // console.log(e);
       }
     }
   }

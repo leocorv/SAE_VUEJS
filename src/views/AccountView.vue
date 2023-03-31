@@ -1,13 +1,9 @@
 <script>
-
 import { useAuthStore } from '../store.js';
 import { computed } from 'vue';
-
 import LoginView from '../components/Login_Register/LoginView.vue';
 import Toggle_Log_Reg from '../components/Login_Register/Toggle_Log_Reg.vue'
 import RegisterView from '../components/Login_Register/RegisterView.vue'
-
-
 export default {
   name: 'AccountView',
   setup() {
@@ -41,5 +37,4 @@ export default {
 </template>
 
 <style>
-
 </style>

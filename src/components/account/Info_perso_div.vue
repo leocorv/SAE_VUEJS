@@ -1,8 +1,107 @@
 <template>
-    <p>TEST</p>
+  <div class="flex">
+    <div class="flex-col mt-2 ml-2">
+      <h2 class=" text-xl font-bold">Informations personnelles</h2>
+      <div>
+        <label for="civilite">Civilité:</label>
+        <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" v-if="!editing" :value=civilite readonly>
+        <select class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" v-else id="civilite" v-model="civilite">
+          <option value="HOMME">Homme</option>
+          <option value="FEMME">Femme</option>
+        </select>
+      </div>
+      <div>
+        <label for="prenom">Prénom:</label>
+        <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="text" id="prenom" :value="prenom" :readonly="!editing" />
+      </div>
+      <div>
+        <label for="nom">Nom:</label>
+        <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" type="text" id="nom" :value="nom" :readonly="!editing" />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" type="email" id="mail" :value="mail" :readonly="!editing" />
+      </div>
+      <div>
+        <label for="telephone">Téléphone:</label>
+        <input
+          class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1"
+          type="tel"
+          id="portable"
+          :value="portable"
+          :readonly="!editing"
+        />
+      </div>
+      <div class="form-control">
+        <span>Recevoir les offres de Miliboo:</span>
+        <label class="relative inline-flex items-center mr-5 cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer"  id="newsMiliboo" :checked="newsMiliboo" :disabled="!editing" v-model="newsMiliboo">
+          <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+        </label>
+      </div>
+      <div class="form-control">
+        <span>Recevoir les offres de nos partenaires:</span>
+        <label class="relative inline-flex items-center mr-5 cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer"  id="newsPartenaire" :checked="newsPartenaire" :disabled="!editing" v-model="newsPartenaire">
+          <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+        </label>
+      </div>
+      <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" @click="toggleEditing" >
+          <span class=" absolute inset-0 bg-gray-200 "></span>
+          <span class=" rounded-full absolute inset-0 flex justify-center items-center font-bold"> 
+            {{ editing ? "Enregistrer" : "Modifier" }}
+          </span>
+          {{ editing ? "Enregistrer" : "Modifier" }}
+      </button>
+    </div>
+    <div class="flex-col">
+      POGJ
+    </div>
+  </div>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      prenom: "",
+      nom: "",
+      mail: "",
+      civilite: "",
+      portable: "",
+      newsMiliboo: false,
+      newsPartenaire: false,
+      password: "",
+      editing: false,
+    };
+  },
+  mounted() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    this.prenom = user.prenom;
+    this.nom = user.nom;
+    this.mail = user.mail;
+    this.portable = user.portable;
+    this.civilite = user.civilite;
+    this.newsMiliboo = user.newsMiliboo;
+    this.newsPartenaire = user.newsPartenaire;
+  },
+  methods: {
+    toggleEditing() {
+      this.editing = !this.editing;
+      if (!this.editing) {
+        const updatedUser = {
+          prenom: this.prenom,
+          nom: this.nom,
+          mail: this.mail,
+          portable: this.portable,
+          civilite: this.civilite,
+          newsMiliboo: this.newsMiliboo,
+          newsPartenaire: this.newsPartenaire,
+        };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      }
+    },
+  },
+};
 </script>
-
 <style></style>
