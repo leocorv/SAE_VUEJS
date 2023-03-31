@@ -1,13 +1,20 @@
-persistance donnée pour filtres!!!!!
+reset prix filtre quand "supprimer" (p2)
+afficher filtres appliqués (p2)
 
-afficher résumés produits
 
-faire tris
+implémenter le tri (wait for api to be ready) (p3)
 
-optimiser et régler warnings
 
-gérer erreurs
+afficher résumés produits (p1)
+
+
+optimiser et régler warnings (p3)
+
+gérer erreurs (p2)
 -produit en liste locale qui n'est plus dispo quand on clique sur détail -> re fetch
 -api dead -> erreurs et messages
 
-remonter en haut de page quand on change de page
+afficher nomenclature (p3) ou bouton retour (p2)
+
+remonter en haut de page quand on change de page (p3)
+bouton remonter en haut de page (p3)
