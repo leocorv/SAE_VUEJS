@@ -1,4 +1,4 @@
-faire localstorage pour stocker les variantes
+persistance donnée pour filtres!!!!!
 
 afficher résumés produits
 
@@ -7,5 +7,7 @@ faire tris
 optimiser et régler warnings
 
 gérer erreurs
+-produit en liste locale qui n'est plus dispo quand on clique sur détail -> re fetch
+-api dead -> erreurs et messages
 
 remonter en haut de page quand on change de page

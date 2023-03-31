@@ -8,7 +8,6 @@ import { produitsService } from "../_services"
 
 //properties
 const props = defineProps({
-    //id categorie
     idCategorie: {required: true}
 })
 
@@ -24,28 +23,40 @@ export default {
         nbPagesProduits:null,
         pageActuelleProduit:1,
         //tri/filtre
-        couleurFilter: [],
+        couleursFilter: [],
         prixMinFilter:null,
         prixMaxFilter:null,
         ordreTri:null,
     };
   },
   methods: {
-    //récupère le nombre de pages
-    getNbPages() {
-      produitsService.getNbPages(this.idCategorie).then(response => {
+    setFiltres(couleurs,prixMin,prixMax){
+      this.couleursFilter=[]
+      if(couleurs!=null && couleurs.length!=0){
+        couleurs.forEach((couleur)=>{
+          this.couleursFilter.push(couleur.idCouleur)
+        })
+      }
+      this.prixMinFilter=prixMin
+      this.prixMaxFilter=prixMax
+      this.pageActuelleProduit=1
+      console.log(this.couleursFilter)
+      this.getPdt()
+      this.getNbPages()
+    },
+    getNbPages() { //récupère le nombre de pages
+      produitsService.getNbPages(this.idCategorie,this.couleursFilter,this.prixMinFilter,this.prixMaxFilter).then(response => {
         this.nbPagesProduits = response
       })
     },
-    //récupère tt les produits à afficher
-    getPdt() {
-      produitsService.getProduits(this.idCategorie,this.pageActuelleProduit).then(response => {
+    getPdt() { //récupère tt les produits à afficher
+      //reset
+      this.produits=null //on vire tt les produits   
+      produitsService.getProduits(this.idCategorie,this.pageActuelleProduit,this.couleursFilter,this.prixMinFilter,this.prixMaxFilter).then(response => {
         this.produits = response
       })
     },
-    //change de page
-    changePageProduit(page) {
-      this.produits=null //on vire tt les produits      
+    changePageProduit(page) { //change de page
       this.pageActuelleProduit = page //on change la page actuelle
       this.getPdt()//on met à jour la liste de produits
     }
@@ -62,18 +73,16 @@ export default {
 
 <template>
 <div>
-    <div class="flex text-5xl justify-center font w-full pb-10">
+    <div class="flex text-5xl justify-center font w-full pb-10 mt-6">
         <h2>Nos produits</h2>   
     </div>
     
     <!-- mon component de tri -->
     <div>
-        <NavTriProduit/>
+        <NavTriProduit @setFiltres="setFiltres"/>
     </div>
 
     <!-- mes cards de produits -->
-    <!-- il lui faut la liste des produits à afficher (! cette liste change dynamiquement, quand on change de page par exemple)-->
-    <!-- la disposition et l'affichage sont gérés par cette vue -->
     <div v-if="produits!=null && produits.length!=0">
         <CardProduit :produits="produits"/>
     </div>
@@ -94,6 +103,3 @@ export default {
 
 </template>
 
-<style>
-
-</style>
