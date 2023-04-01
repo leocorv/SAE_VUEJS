@@ -10,12 +10,12 @@
             <div v-if="this.isClickedTri" class="px-3 py-2 gap-2 flex flex-col border-2 absolute top-18 w-40 bg-gray-100 border-gray-600 text-black ">                   
                 <div>
                     <label for="prixMin">Minimum :</label>
-                    <input v-model="prixMin" @change="sendPrixMin()"
+                    <input v-model="listePrix.mini" @change="sendPrix()"
                      id="prixMin" type="number"  class="w-full border border-gray-400 px-1">
                 </div>
                 <div>
                     <label for="prixMax">Maximum :</label>
-                    <input v-model="prixMax" @change="sendPrixMax()"
+                    <input v-model="listePrix.maxi" @change="sendPrix()"
                     id="prixMax" type="number" class="w-full border border-gray-400 px-1">
                 </div>
             </div>
@@ -28,23 +28,16 @@
 export default {
     props:[
         "title",
-        "reseted",
+        "listePrix",
     ],
     data() {
       return {
         isClickedTri:false,
-        prixMin:'',
-        prixMax:'',
       }
     },
     methods: {
-        //envoix prix min
-        sendPrixMin(){
-            this.$emit('setPrixMin',this.prixMin)
-        },
-        //envoix prix max
-        sendPrixMax(){
-            this.$emit('setPrixMax',this.prixMax)
+        sendPrix(){
+            this.$emit('setPrix',this.prix) //emit
         },
         //affichage uniquement
         toggleClickedTri(){

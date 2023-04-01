@@ -40,7 +40,6 @@ export default {
       this.prixMinFilter=prixMin
       this.prixMaxFilter=prixMax
       this.pageActuelleProduit=1
-      console.log(this.couleursFilter)
       this.getPdt()
       this.getNbPages()
     },

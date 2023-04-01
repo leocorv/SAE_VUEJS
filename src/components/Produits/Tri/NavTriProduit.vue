@@ -5,7 +5,7 @@
             <div class=" flex place-items-center flex-wrap place-content-around w-2/5 py-5">
                 <!-- filtres -->
                 <CardTriProduit @toggleElementFilter="toggleElementCouleurFilter" :title="'Couleur'" :elements="couleursAAfficher"/>
-                <CardTriProduitPrix  @setPrixMin="setPrixMini" @setPrixMax="setPrixMaxi" :title="'Prix'" :prixMin="prixMinFilter" :prixMax="prixMaxFilter"/>
+                <CardTriProduitPrix  :listePrix="prix" :title="'Prix'" @setPrix="setPrix"/>
                 <!-- btn valider -->
                 <button @click="validerFiltres()" class=" bg-gray-200 border border-gray-500 px-2 py-1 hover:bg-gray-500 hover:border-gray-800 active:bg-gray-800 transition-all">Appliquer</button>
                 <!-- btn suppr -->
@@ -33,17 +33,13 @@ export default{
         CardTriProduitPrix,
     },
     data() {
-          return {          
-            //isClickedTri:false,
-            
+          return {
             //filter state
             couleursAAfficher:[],
             couleurFilter: [],
-            prixMinFilter:null,
-            prixMaxFilter:null,
+            prix:{'mini':'','maxi':''},
             //tri
             ordreTri:null,
-
           }
     },
     methods: {
@@ -52,8 +48,7 @@ export default{
                 this.couleursAAfficher[index].isActive=false
             })
             this.couleurFilter=[]
-            this.prixMinFilter=null
-            this.prixMaxFilter=null
+            this.prix={'mini':'','maxi':''}
             this.ordreTri=null
             this.validerFiltres()
         },
@@ -61,14 +56,14 @@ export default{
             this.couleurFilter.sort(function(a,b){
                 return a.idCouleur - b.idCouleur
             })
-            this.$emit('setFiltres',this.couleurFilter,this.prixMinFilter,this.prixMaxFilter) //emit
+            this.$emit('setFiltres',this.couleurFilter,this.prix.mini,this.prix.maxi) //emit
         },
-        setPrixMini(prix){ //set le prix mini
+        setPrix(prix){ //set le prix mini
             this.prixMinFilter = prix
         },
-        setPrixMaxi(prix){ //set le prix maxi
-            this.prixMaxFilter = prix
-        },
+        // setPrixMaxi(prix){ //set le prix maxi
+        //     this.prixMaxFilter = prix
+        // },
         toggleElementCouleurFilter(element){ //set/unset element from couleur
             const index = this.couleurFilter.indexOf(element); //on récup l'index
             const indexAffichage = this.couleursAAfficher.indexOf(element) //pour persistance
