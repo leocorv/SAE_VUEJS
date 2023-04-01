@@ -11,10 +11,14 @@ afficher résumés produits (p1)
 optimiser et régler warnings (p3)
 
 gérer erreurs (p2)
--produit en liste locale qui n'est plus dispo quand on clique sur détail -> re fetch
+-produit en liste locale qui n'est plus dispo quand on clique sur détail -> re fetch (p3 voir p4)
 -api dead -> erreurs et messages
 
 afficher nomenclature (p3) ou bouton retour (p2)
 
 remonter en haut de page quand on change de page (p3)
 bouton remonter en haut de page (p3)
+
+pb bouton retour page détail (p4)
+
+refaire détail produit(p2)

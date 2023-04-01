@@ -28,6 +28,7 @@
 export default {
     props:[
         "title",
+        "reseted",
     ],
     data() {
       return {
@@ -62,7 +63,7 @@ export default {
             document.getElementById("div_tri"+this.title).classList.remove("bg-gray-600")
             document.getElementById("fleche_tri"+this.title).classList.remove("rotate-180")
         }
-    },   
+    },
     mounted() {
     }
 }

@@ -5,7 +5,7 @@
             <div class=" flex place-items-center flex-wrap place-content-around w-2/5 py-5">
                 <!-- filtres -->
                 <CardTriProduit @toggleElementFilter="toggleElementCouleurFilter" :title="'Couleur'" :elements="couleursAAfficher"/>
-                <CardTriProduitPrix @setPrixMin="setPrixMini" @setPrixMax="setPrixMaxi" :title="'Prix'" :prixMin="prixMinFilter" :prixMax="prixMaxFilter"/>
+                <CardTriProduitPrix  @setPrixMin="setPrixMini" @setPrixMax="setPrixMaxi" :title="'Prix'" :prixMin="prixMinFilter" :prixMax="prixMaxFilter"/>
                 <!-- btn valider -->
                 <button @click="validerFiltres()" class=" bg-gray-200 border border-gray-500 px-2 py-1 hover:bg-gray-500 hover:border-gray-800 active:bg-gray-800 transition-all">Appliquer</button>
                 <!-- btn suppr -->

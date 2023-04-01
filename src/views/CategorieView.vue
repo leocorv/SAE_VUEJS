@@ -46,6 +46,9 @@ export default {
     },
     getNbPages() { //récupère le nombre de pages
       produitsService.getNbPages(this.idCategorie,this.couleursFilter,this.prixMinFilter,this.prixMaxFilter).then(response => {
+        if (response==0){
+          response=1
+        }
         this.nbPagesProduits = response
       })
     },
@@ -82,14 +85,18 @@ export default {
         <NavTriProduit @setFiltres="setFiltres"/>
     </div>
 
-    <!-- mes cards de produits -->
-    <div v-if="produits!=null && produits.length!=0">
-        <CardProduit :produits="produits"/>
-    </div>
-    <!-- si on a un probleme d'api -->
-    <div v-else
+    <!-- pdt le chargement -->
+    <div v-if="produits==null "
         class="flex flex-col place-items-center justify-center h-48 gap-5">
         <p class="text-3xl">Chargement en cours ...</p>
+    </div>
+    <!-- si on a pas de produits  -->
+    <div v-else-if="produits.length==0" class="h-56 flex flex-col place-items-center justify-center">
+      <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Cette page est vide ...</p>
+    </div>
+    <!-- sinon -->
+    <div v-else>
+        <CardProduit :produits="produits"/>
     </div>
     
     

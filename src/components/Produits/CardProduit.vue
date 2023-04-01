@@ -5,11 +5,8 @@
 
     <!-- div contenant tt les cars -->    
     <div class="flex flex-wrap mt-10 mx-20 place-content-around z-0">
-        <div v-if="this.produits==null || this.produits==[] || this.produits.length==0 ">
-            <p class=" text-2xl h-28 items-center flex">Cette page est vide ...</p>
-        </div>
         <!-- on boucle sur le nombre de produit pour tous les affichers -->
-        <div v-else v-for="bien in this.produits" :key="this.produits.idProduit" class=" duration-75 mx-4 my-4 ease-in md:ease-in hover:outline hover:outline-violet-600 hover:outline-4 h-96 w-80 bg-base-100 shadow-xl rounded-xl bg-gray-200" >
+        <div v-for="bien in this.produits" :key="this.produits.idProduit" class=" duration-75 mx-4 my-4 ease-in md:ease-in hover:outline hover:outline-violet-600 hover:outline-4 h-96 w-80 bg-base-100 shadow-xl rounded-xl bg-gray-200" >
             <div  class="h-48 rounded-t-xl">
                 <img v-if="bien.photos!=null"
                     :src="bien.photos[0]" alt="imagePresentation">
