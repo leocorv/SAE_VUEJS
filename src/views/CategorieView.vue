@@ -95,7 +95,7 @@ export default {
     </div>
     <!-- sinon -->
     <div v-else>
-        <CardProduit :produits="produits"/>
+        <CardProduit :produits="produits" :idCouleursSelect="couleursFilter"/>
     </div>
     
     

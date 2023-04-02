@@ -78,9 +78,36 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
             axios.get(requestString)
                 .then(response => {
                     response.data.forEach(pdt => {
+                        //liste d'avis (plus simple pour la suite)
+                        pdt.avis=[]
+                        pdt.noteMoyenneAvis=0
+                        pdt.variantesProduitNavigation.forEach((variante)=>{
+                            variante.avisVarianteNavigation.forEach((avi)=>{
+                                pdt.avis.push(avi)
+                                pdt.noteMoyenneAvis+=avi.avisNote
+                            })
+                        })
+                        pdt.noteMoyenneAvis = pdt.noteMoyenneAvis/pdt.avis.length
+                        //prix min/max (pour l'affichage)
+                        pdt.prixMinMax=""
+                        var min=pdt.variantesProduitNavigation[0].prix
+                        var max=pdt.variantesProduitNavigation[0].prix
+                        pdt.variantesProduitNavigation.forEach((variante)=>{
+                            if (variante.prix*variante.promo<min){
+                                min=variante.prix*variante.promo
+                            }else if(variante.prix*variante.promo>max){
+                                max=variante.prix*variante.promo
+                            }
+                        })
+                        if(min!=max){
+                            pdt.prixMinMax+=min+"€ - "+max+"€"
+                        }else{
+                            pdt.prixMinMax+=min+"€"
+                        }
+
                         produitsList.push(pdt)
                     })
-
+                    
                     localStorageService.setWithExpiry(name,produitsList,tpsExp) //on stocke les données dans le localstorage
 
                     console.log("fetched produits")
@@ -94,49 +121,48 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
             resolve(produits_value)
         }
 
-    })
-    // return new Promise(function(resolve){
-    //     //NOM DE LA VAR DU LOCALSTORAGE
-    //     const name="produits"
-    //     //TEMPS D'EXPIRATION DES CATEGORIES
-    //     const tpsExp = 20
-        
-    //     //on regarde si on a déjà les produits dans le local et s'ils ne sont pas expirés
-    //     var produits_value = localStorageService.getWithExpiry(name)
-        
-    //     //si on a un retour null
-    //     if(produits_value == null){
-    //         //liste qui stock les catégories
-    //         const categorie_list = reactive([])
-    //         //on va chercher les données
-    //         axios.get('https://localhost:7140/api/Categorie/GetAllCategoriesPremierNiveau')
-    //             .then(response => {
-    //                 response.data.forEach(cat => {
-    //                     categorie_list.push(cat)
-    //                 })
+    })  
+}
 
-    //                 //on stocke les données dans le localstorage
-    //                 localStorageService.setWithExpiry(name,categorie_list,tpsExpCat)
-                    
-    //                 //debug
-    //                 console.log("on a du fetch")
+//get produit de la page
+let getProduitById = (idProduit) => {
+    //on renvoie une promesse
+    return new Promise(function(resolve){
+                     
+        var produit = reactive({}) //liste propduits
+        //request string
+        var requestString = "https://localhost:7140/api/Produits/GetById?" //base
+        requestString+="id="+idProduit //id du produit        
+        //request
+        axios.get(requestString)
+            .then(response => {
+                produit = response.data
 
-    //                 resolve(categorie_list)
-    //             })
-    //             .catch((e)=> {
-    //                 console.log("erreur"+e)
-    //             })
-    //     }else {
-    //         console.log("on a pas fetch")
-    //         resolve(produits_value)
-    //     }
-    // })
-    
+                //liste d'avis (plus simple)
+                produit.avis=[]
+                produit.noteMoyenneAvis=0
+                produit.variantesProduitNavigation.forEach((variante)=>{
+                    variante.avisVarianteNavigation.forEach((avi)=>{
+                        produit.avis.push(avi)
+                        produit.noteMoyenneAvis+=avi.avisNote
+                    })
+                })
+                produit.noteMoyenneAvis = produit.noteMoyenneAvis/produit.avis.length
+
+                console.log("fetched 1 produit")
+                resolve(produit)
+            })
+            .catch((e)=> {
+                console.log("erreur"+e)
+            })
+
+    })  
 }
 
 
 export const produitsService = {
     getProduits,
     getNbPages,
+    getProduitById,
 }
 
