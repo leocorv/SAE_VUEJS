@@ -8,7 +8,7 @@ export default {
             //id du produit
             id:this.$route.params.idProduit,
             //produit
-            produit:null,
+            produit:'load',
             indexVariante:0,
 
             //note moyenne avis
@@ -58,7 +58,10 @@ export default {
         <div class=" ml-5 mt-5 text-lg border border-gray-600 rounded-xl w-16 h-10 flex justify-center text-center">
             <button @click="$event => retour()">Retour</button>
         </div>
-        <div v-if="produit != null">
+        <div v-if="produit == 'load'" class=" h-56 flex flex-col place-items-center justify-center">
+            <p class="text-2xl flex flex-col place-items-center justify-center gap-5">Chargement ...</p>
+        </div>
+        <div v-else-if="produit != null">
             <div class="flex flex-row gap-20 mt-5">
                 <!-- image -->
                 <div class="rounded-xl border border-gray-300 w-3/5 h-96 ml-8 mt-5 flex justify-center">

@@ -15,6 +15,7 @@
                 
             </div>
         </div>
+       
         <hr>
     </div>
 </template>
@@ -37,7 +38,7 @@ export default{
             //filter state
             couleursAAfficher:[],
             couleurFilter: [],
-            prix:{'mini':'','maxi':''},
+            prix:{'mini':null,'maxi':null},
             //tri
             ordreTri:null,
           }
@@ -48,7 +49,7 @@ export default{
                 this.couleursAAfficher[index].isActive=false
             })
             this.couleurFilter=[]
-            this.prix={'mini':'','maxi':''}
+            this.prix={'mini':null,'maxi':null}
             this.ordreTri=null
             this.validerFiltres()
         },

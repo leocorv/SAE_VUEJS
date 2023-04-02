@@ -1,4 +1,3 @@
-afficher filtres appliqués (p2)
 afficher nomenclature (p3) ou bouton retour (p2)
 
 
@@ -10,6 +9,7 @@ optimiser et régler warnings (p3)
 
 gérer erreurs (p2)
 -api dead -> erreurs et messages
+-categorie n10000 -> erreur
 
 
 

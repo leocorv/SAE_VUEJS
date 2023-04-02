@@ -154,6 +154,7 @@ let getProduitById = (idProduit) => {
             })
             .catch((e)=> {
                 console.log("erreur"+e)
+                resolve(null)
             })
 
     })  
