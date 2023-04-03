@@ -24,7 +24,7 @@ export default {
 }
 
 
-</script>
+</script> 
 
 <template>
   <div v-if="this.panier!=null">
