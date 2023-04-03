@@ -9,8 +9,9 @@
                     <div id="paiement" class=" input_categorie_button select-none cursor-pointer min-h-[3rem] max-w-[20rem] rounded-xl basis-full flex-auto border-solid border-black-500 border-2 m-4 flex justify-center items-center">Moyen de paiement</div>
                 </div>
                 <hr>
-                <div id="info_account_div" class="flex justify-between items-center">
+                <div id="info_account_div" class="flex justify-evenly items-center p-4">
                     <InfosView />
+                    <AdresseUserView />
                 </div>
                 <div id="commandes_div" class="hidden justify-between items-center">
                     <CommandesView />
@@ -24,9 +25,10 @@
 </template>
 
 <script setup>
-import InfosView from './Info_perso_div.vue'
-import CommandesView from './Commande_account.vue'
-import PaiementView from './Methodes_Paiement.vue'
+import InfosView from './categories/Info_perso_div.vue'
+import CommandesView from './categories/Commande_account.vue'
+import PaiementView from './categories/Methodes_Paiement.vue'
+import AdresseUserView from './categories/Adresse_User_div.vue'
 
 document.addEventListener('DOMContentLoaded', function() {
     var infos = document.getElementById('info_account');

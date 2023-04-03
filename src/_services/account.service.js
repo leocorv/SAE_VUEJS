@@ -32,13 +32,40 @@ let getEmailFromToken = () => {
 let getUserByEmail = (email) => {
     var emailConvert = email.replace(/@/g, "%40");
     var user = []
-    var lien = '/api/Clients/GetByEmail?email='+ emailConvert
-    Axios.get(lien).then((response)=> {
+    var lien = '/api/Clients/GetByEmail?email='+ emailConvert;
+    return Axios.get(lien).then((response)=> {
         user.push(response.data);
-        localStorage.setItem('user', JSON.stringify(user[0]));      
+        localStorage.setItem('user', JSON.stringify(user[0]));
     });    
 }
 
+
+let getUserIdByEmail = async (email) => {
+    var emailConvert = email.replace(/@/g, "%40");
+    var lien = '/api/Clients/GetByEmail?email=' + emailConvert;
+    try {
+        const response = await Axios.get(lien);
+        // console.log('getUserIdByEmail response:', response);
+        const clientId = response.data.clientId;
+        return clientId;
+    } catch (error) {
+        // console.error(error);
+        return null;
+    }
+}
+
+let putClientByEmail = async (email) => {
+    var userId = await getUserIdByEmail(email);
+    var lien = '/api/Clients/Put/'+userId;
+    const user = JSON.parse(localStorage.getItem('user'));
+    try {
+      const response = await Axios.put(lien, user);
+      return true;
+    } catch(error) {
+      throw error;
+    }   
+  }
+  
 
 export const accountService = {
     login,
@@ -46,5 +73,6 @@ export const accountService = {
     saveToken,
     isLogged,
     getUserByEmail,
-    getEmailFromToken
+    getEmailFromToken,
+    putClientByEmail
 }
