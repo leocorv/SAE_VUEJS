@@ -945,6 +945,7 @@ module.exports = {
       "11/12": "91.666667%",
       full: "100%",
       screen: "100vw",
+      "2/3Screen": "75rem",
       min: "min-content",
       max: "max-content",
       fit: "fit-content",

@@ -1,4 +1,6 @@
-afficher nomenclature (p3) ou bouton retour (p2)
+chargement categorie !!!
+
+afficher nomenclature (p3)
 
 
 implémenter le tri (wait for api to be ready) (p3)
