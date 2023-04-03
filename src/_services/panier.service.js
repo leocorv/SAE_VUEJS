@@ -29,15 +29,57 @@ let getProduitsPanier = () => {
                 })
                 .catch((e)=> {
                     console.log("erreur"+e)
+                    resolve (null)
                 })
     })  
 }
 
 //set un produit dans le panier
-//TODO
+let setProduitInPanier = () => {
+    //on renvoie une promesse
+    return new Promise(function(resolve){
+        const produitsList = reactive([]) //liste produits
+            //request string
+            var requestString = "https://localhost:7140/api/LignePaniers/GetByClientId?" //base
+            const clientId = 3
+            requestString+="idClient="+clientId //id du client
+            
+            //request
+            axios.get(requestString)
+                .then(response => {
+                    response.data.forEach(pdt => {
+                        produitsList.push(pdt)
+                    })
+                    
+                    console.log("fetched panier")
+                    resolve(produitsList)
+                })
+                .catch((e)=> {
+                    console.log("erreur"+e)
+                })
+    })  
+}
 
 //edit un produit dans le panier
-//TODO
+let deleteProduitFromPanier = (idLigne) => {
+    //on renvoie une promesse
+    return new Promise(function(resolve){
+        //request string
+        var requestString = "https://localhost:7140/api/LignePaniers/DeleteLignePanier/" //base
+        requestString+=""+idLigne //id de la ligne
+        
+        //request
+        axios.get(requestString)
+            .then(response => {
+                                    
+                console.log("fetched panier")
+                resolve(response)
+            })
+            .catch((e)=> {
+                console.log("erreur"+e)
+            })
+    })  
+}
 
 //supprimer un produit dans le panier
 //TODO
@@ -46,5 +88,6 @@ let getProduitsPanier = () => {
 
 export const panierService = {
     getProduitsPanier,
+    deleteProduitFromPanier,
 }
 
