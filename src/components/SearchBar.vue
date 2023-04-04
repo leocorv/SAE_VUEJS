@@ -16,7 +16,7 @@
           </a>
         </div>
         <div class="flexbox relative w-20 img_nav">
-          <a href="/boutique">
+          <a href="/">
             <img class="block mt-4 w-14 text-center image dark:invert dark:contrast-50"  src="/src/assets/boutique.png">
             <div class="absolute l-0 w-auto text-left opacity-0 font-bold transition-all text dark:text-white dark:font-semibold dark:contrast-50">Boutique</div>
           </a>    

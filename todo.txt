@@ -1,0 +1,27 @@
+chargement categorie !!!
+
+put -> modif ligne commande
+post -> ajouter lignecommande
+post -> ajouter commande une fois panier payé
+
+
+
+afficher nomenclature (p3)
+
+
+implémenter le tri (wait for api to be ready) (p3)
+
+
+
+optimiser et régler warnings (p3)
+
+gérer erreurs (p2)
+-api dead -> erreurs et messages
+-categorie n10000 -> erreur
+
+
+
+remonter en haut de page quand on change de page (p3)
+bouton remonter en haut de page (p3)
+
+pb bouton retour page détail (p4)
