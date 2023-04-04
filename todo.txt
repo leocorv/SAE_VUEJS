@@ -1,5 +1,11 @@
 chargement categorie !!!
 
+put -> modif ligne commande
+post -> ajouter lignecommande
+post -> ajouter commande une fois panier payé
+
+
+
 afficher nomenclature (p3)
 
 
