@@ -100,9 +100,9 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
                             }
                         })
                         if(min!=max){
-                            pdt.prixMinMax+=min+"€ - "+max+"€"
+                            pdt.prixMinMax+=parseFloat(min).toFixed(1)+"€ - "+parseFloat(max).toFixed(1)+"€"
                         }else{
-                            pdt.prixMinMax+=min+"€"
+                            pdt.prixMinMax+=parseFloat(min).toFixed(1)+"€"
                         }
 
                         produitsList.push(pdt)

@@ -1,7 +1,5 @@
-<script setup>
-import { panierService } from "../_services"
-</script>
 <script>
+import { panierService } from "../_services"
 export default {
     data() {
         return{
@@ -13,7 +11,7 @@ export default {
     methods: {
         //get panier
         getPanier(){
-          panierService.getProduitsPanier().then(response => {
+          panierService.getProduitsPanier(3).then(response => {
             this.panier = response
             if(this.panier!=null)
             {
@@ -59,28 +57,6 @@ export default {
               
             })
         },
-        //TEST
-        postTest(){
-          const idVariante = 5
-          const idUser = 3
-          const qtite = 4
-          //check if not in panier
-          panierService.getProduitsPanier().then(response => {
-            const objInPanier=response.find(r=>r.varianteId==idVariante)
-            if (objInPanier!=null){
-              panierService.editProduitFromPanier(objInPanier.ligneId,idUser,idVariante,qtite)
-                .then(response => {
-                  console.log(response)
-                  //204 if succed
-                })
-            }else{
-              panierService.setProduitInPanier(idUser,idVariante,qtite).then(response => {
-                console.log(response.code)
-                //undefined if succed
-              })
-            }
-          })
-        },
         paiementTest(){
           
         },
@@ -94,8 +70,6 @@ export default {
 </script> 
 
 <template>
-  <button class="border w-24" @click="postTest()">test</button>
-  <button class="border w-24" @click="''">PAYER</button>
   <div v-if="panier!=null">
     {{ panier[0] }}
   </div>
@@ -204,7 +178,7 @@ export default {
         </div>
         <!-- paiement -->
         <div class="flex flex-row place-items-center text-3xl justify-end">
-          <button class="transition-all  hover:scale-105 rounded px-2 py-1 border-2 border-yellow-500 bg-yellow-200 hover:cursor-pointer hover:bg-yellow-300 hover:border-yellow-800">
+          <button @click="this.$router.push('/infosPaiement')" class="transition-all  hover:scale-105 rounded px-2 py-1 border-2 border-yellow-500 bg-yellow-200 hover:cursor-pointer hover:bg-yellow-300 hover:border-yellow-800">
             Procéder au paiement
           </button>
         </div>

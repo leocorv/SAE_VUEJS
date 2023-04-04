@@ -9,14 +9,13 @@ let getUser = () => {
 
 
 //get les produits du panier
-let getProduitsPanier = () => {
+let getProduitsPanier = (idClient) => {
     //on renvoie une promesse
     return new Promise(function(resolve){
         const produitsList = reactive([]) //liste produits
             //request string
             var requestString = "https://localhost:7140/api/LignePaniers/GetByClientId?" //base
-            const clientId = 3
-            requestString+="idClient="+clientId //id du client
+            requestString+="idClient="+idClient //id du client
             
             //request
             axios.get(requestString)
@@ -43,7 +42,7 @@ let setProduitInPanier = (idUser,idVariante,quantitePdt) => {
             var requestString = "https://localhost:7140/api/LignePaniers/PostLignePanier" //base
             //request
             axios.post(requestString,{
-                ligneId:1005, //A SUPPRIMER
+                ligneId:1011, //A SUPPRIMER
                 clientId: idUser,
                 varianteId: idVariante,
                 quantite: quantitePdt
@@ -104,6 +103,32 @@ let deleteProduitFromPanier = (idLigne) => {
     })  
 }
 
+//valider paiement (supprime les lignes panier et les met dans une nouvelle commande)
+let validerPanier = (idClient,adresse,express,collect,instructions) => {
+    //on renvoie une promesse
+    return new Promise(function(resolve){
+        //request string
+        var requestString = "" //base
+        //request
+        console.log("ttodo")
+        resolve(null)
+        // axios.put(requestString,{
+        //     ligneId:idLigne, 
+        //     clientId: idUser,
+        //     varianteId: idVariante,
+        //     quantite: quantitePdt
+        // })
+        //     .then(response => {
+                                    
+        //         console.log("panier validated")
+        //         resolve(response)
+        //     })
+        //     .catch((e)=> {
+        //         console.log("erreur"+e)
+        //     })
+    })  
+}
+
 
 
 
@@ -113,6 +138,6 @@ export const panierService = {
     deleteProduitFromPanier,
     setProduitInPanier,
     editProduitFromPanier,
-
+    validerPanier,
 }
 
