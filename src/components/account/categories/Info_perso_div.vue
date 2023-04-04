@@ -1,7 +1,7 @@
 <template>
   <div class="flex-col mt-2 mr-10">
     <h2 class=" text-xl font-bold">Informations personnelles</h2>
-    <div>
+    <div class="flex flex-col items-start mt-3">
       <label for="civilite">Civilité:</label>
       <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" v-if="!editing" :value=civilite readonly>
       <select class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" v-else id="civilite" v-model="civilite">
@@ -9,27 +9,28 @@
         <option value="FEMME">Femme</option>
       </select>
     </div>
-    <div>
+    <div class="flex flex-col items-start mt-3">
       <label for="prenom">Prénom:</label>
       <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="text" id="prenom" v-model="prenom" :readonly="!editing" />
     </div>
-    <div>
+    <div class="flex flex-col items-start mt-3">
       <label for="nom">Nom:</label>
       <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" type="text" id="nom" v-model="nom" :readonly="!editing" />
     </div>
-    <div class="flex flex-col items-start">
+    <div class="flex flex-col items-start mt-3">
       <label for="email">Email:</label>
       <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" type="email" id="mail" v-model="mail" :readonly="!editing" />
       <span class="text-red-600 whitespace-nowrap max-w-[10rem]">{{ emailError }}</span>
     </div>
 
-    <div>
+    <div class="flex flex-col items-start mt-3">
       <label for="telephone">Téléphone:</label>
       <input
         class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1"
         type="tel"
         id="portable"
-        v-model="portable"
+        :value="formatPhoneNumber(portable)"
+        @input="portable = $event.target.value.replace(/\s+/g, '')"
         :readonly="!editing"
       />
     </div>
@@ -156,6 +157,9 @@ export default {
           }
         }
       }
+    },
+    formatPhoneNumber(phoneNumber) {
+      return phoneNumber.replace(/(\d{2})(?=\d)/g, '$1 ').trim();
     },
   },
 };
