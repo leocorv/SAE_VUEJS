@@ -52,6 +52,37 @@ export default {
           this.toggleReadonly(indexLigne)
           this.calculePrixTotal()
           //save in database todo
+          panierService.editProduitFromPanier(this.panier[indexLigne].ligneId,3,this.panier[indexLigne].varianteId,this.panier[indexLigne].quantite)
+            .then(response => {
+              console.log(response)
+              //204 if succed
+              
+            })
+        },
+        //TEST
+        postTest(){
+          const idVariante = 5
+          const idUser = 3
+          const qtite = 4
+          //check if not in panier
+          panierService.getProduitsPanier().then(response => {
+            const objInPanier=response.find(r=>r.varianteId==idVariante)
+            if (objInPanier!=null){
+              panierService.editProduitFromPanier(objInPanier.ligneId,idUser,idVariante,qtite)
+                .then(response => {
+                  console.log(response)
+                  //204 if succed
+                })
+            }else{
+              panierService.setProduitInPanier(idUser,idVariante,qtite).then(response => {
+                console.log(response.code)
+                //undefined if succed
+              })
+            }
+          })
+        },
+        paiementTest(){
+          
         },
     },   
     mounted() {
@@ -63,7 +94,11 @@ export default {
 </script> 
 
 <template>
-
+  <button class="border w-24" @click="postTest()">test</button>
+  <button class="border w-24" @click="''">PAYER</button>
+  <div v-if="panier!=null">
+    {{ panier[0] }}
+  </div>
   <div class="h-auto mt-5 mb-5 flex flex-col place-self-center justify-center ">
     <h2 class="text-5xl mb-24 mt-10">Mon panier</h2>
     <!-- loading / vide -->
@@ -109,13 +144,23 @@ export default {
             <p class="">Quantité</p>
             <p>:</p>
             <input type="number" v-model="ligne.quantite" readonly :max="ligne.variantesLignePanierNavigation.stock" min="1"
-              class="border-2 px-1 rounded bg-gray-200 border-gray-400 w-14 font-semibold">
+              class="border-2 px-1 rounded bg-gray-200 border-gray-400 w-16 font-semibold">
           </div>
           <div v-else class="flex flex-row gap-2 place-items-center">
             <p class="">Quantité</p>
             <p>:</p>
             <input type="number" v-model="ligne.quantiteTemp" :max="ligne.variantesLignePanierNavigation.stock" min="1"
-              class="border-4 px-1 rounded border-blue-700 bg-blue-300 w-14 font-semibold scale-110">
+              v-on:focusout="$event=> {
+                //si on écrit manuellement une valeur>stock
+                if(ligne.quantiteTemp>ligne.variantesLignePanierNavigation.stock)
+                {
+                  ligne.quantiteTemp=ligne.variantesLignePanierNavigation.stock
+                }
+                else if (ligne.quantiteTemp<=0){
+                  ligne.quantiteTemp=1
+                }
+              }"
+              class="border-4 px-1 rounded border-blue-700 bg-blue-300 w-16 font-semibold scale-110">
           </div>
         </div>
           <div v-if="ligne.prixReadonly" class="flex flex-col gap-4">

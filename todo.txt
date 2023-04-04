@@ -1,8 +1,8 @@
 chargement categorie !!!
 
-put -> modif ligne commande
-post -> ajouter lignecommande
+
 post -> ajouter commande une fois panier payé
+-> a besoin de idclient/adresse/express=livraison express/collect=point relai/instructions=donnees donne par user
 
 
 
