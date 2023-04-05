@@ -3,6 +3,8 @@ import {produitsService, panierService } from "../_services"
 export default {
     data() {
         return{
+            idUser:null,//utilisateur connecté (ou non)
+            error:null,//erreurs à afficher
             //id du produit
             id:this.$route.params.idProduit,
             //produit
@@ -40,33 +42,39 @@ export default {
         ajouterAuPanier(){
             console.log("panier")
             const idVariante = this.produit.variantesProduitNavigation[this.indexVariante].idVariante
-            const idUser = 3 //il faudra récup le user connecté sinon rediriger vers page connexion
+            this.idUser = panierService.getUserConnectedFromLocalStorage() //il faudra récup le user connecté sinon rediriger vers page connexion
+            this.idUser = 2
             const qtite = this.quantite
-            //check if not in panier
-            panierService.getProduitsPanier(3).then(response => {
-                if(response!=null){
-                    console.log(response)
-                    const objInPanier=response.find(r=>r.varianteId==idVariante)
-                    if (objInPanier!=null){
-                        panierService.editProduitFromPanier(objInPanier.ligneId,idUser,idVariante,qtite)
-                        .then(response => {
+            if (this.idUser!=null) {
+                
+                //check if not in panier
+                panierService.getProduitsPanier(3).then(response => {
+                    if(response!=null){
+                        console.log(response)
+                        const objInPanier=response.find(r=>r.varianteId==idVariante)
+                        if (objInPanier!=null){
+                            panierService.editProduitFromPanier(objInPanier.ligneId,this.idUser,idVariante,qtite)
+                            .then(response => {
+                                console.log(response.status)
+                                if(response.status==204){
+                                this.$router.push('/panier')
+                                }
+                                //204 if succed
+                            })
+                        }else{
+                            panierService.setProduitInPanier(idUser,idVariante,qtite).then(response => {
                             console.log(response.status)
-                            if(response.status==204){
-                            this.$router.push('/panier')
+                            //undefined if succed
+                            if(response.status==201){
+                                this.$router.push('/panier')
                             }
-                            //204 if succed
-                        })
-                    }else{
-                        panierService.setProduitInPanier(idUser,idVariante,qtite).then(response => {
-                        console.log(response.status)
-                        //undefined if succed
-                        if(response.status==201){
-                            this.$router.push('/panier')
+                            })
                         }
-                        })
                     }
-                }
-            })
+                })
+            }else{
+                this.error="Vous devez vous connecter pour ajouter un article au panier !"
+            }
         },
 
     },   
@@ -182,10 +190,13 @@ export default {
                             </div>
                         <!-- btn acheter -->
                         <div class="w-full flex justify-center">
-                            <button @click="$event=> ajouterAuPanier()"
+                            <button @click="$event=> this.ajouterAuPanier()"
                                 class="border-2 border-yellow-600 hover:bg-yellow-600 w-48 rounded-md transition-all mt-8 mb-10">
                                 Ajouter au panier
                             </button>
+                        </div>
+                        <div v-if="this.erreur!=null">
+                            <p class="text-xl text-red-600 font-bold">{{ erreur }}</p>
                         </div>
                     </div>
                 </div>

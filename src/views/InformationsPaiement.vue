@@ -93,6 +93,7 @@
 
 <script>
 import { panierService } from '../_services'
+import { adresseService } from '../_services'
 
 
 
@@ -121,16 +122,10 @@ export default {
         valider(){
             if(this.rue!=null&&this.cp!=null&&this.ville!=null&&this.pays!=null)
             {
-                this.adresse=""
-                this.adresse+=this.rue
-                this.adresse+=", "+this.cp
-                this.adresse+=" "+this.ville
-                this.adresse+=", "+this.pays
-                // console.log(this.adresse)
-                // console.log(this.isLivraisonExpress)
-                // console.log(this.isPointRelai)
-                // console.log(this.instructions)
-                panierService.validerPanier(3,this.adresse,this.isLivraisonExpress,this.isPointRelai,this.instructions).then(response=>{
+                
+                // adresseService.addAdresse()
+
+                panierService.validerPanier(3,1,this.isLivraisonExpress,this.isPointRelai,this.instructions).then(response=>{
                     //if good
                     console.log('end')
                     this.$router.push('/merci')

@@ -2,12 +2,6 @@ import { ref, computed, reactive } from 'vue'
 import axios from 'axios'
 import localStorageService from './localStorage.service'
 
-//get user
-let getUser = () => {
-    return null
-}
-
-
 //get les produits du panier
 let getProduitsPanier = (idClient) => {
     //on renvoie une promesse
@@ -91,7 +85,7 @@ let deleteProduitFromPanier = (idLigne) => {
         var requestString = "https://localhost:7140/api/LignePaniers/DeleteLignePanier/" //base
         requestString+=""+idLigne //id de la ligne
         //request
-        axios.get(requestString)
+        axios.delete(requestString)
             .then(response => {
                                     
                 console.log("deleted panier")
@@ -104,33 +98,36 @@ let deleteProduitFromPanier = (idLigne) => {
 }
 
 //valider paiement (supprime les lignes panier et les met dans une nouvelle commande)
-let validerPanier = (idClient,adresse,express,collect,instructions) => {
+let validerPanier = (idClient,adresseId,isExpress,isCollect,instructions) => {
     //on renvoie une promesse
     return new Promise(function(resolve){
         //request string
-        var requestString = "" //base
+        var requestString = "https://localhost:7140/api/Commandes/PostCommande" //base
         //request
-        console.log("ttodo")
-        resolve(null)
-        // axios.put(requestString,{
-        //     ligneId:idLigne, 
-        //     clientId: idUser,
-        //     varianteId: idVariante,
-        //     quantite: quantitePdt
-        // })
-        //     .then(response => {
-                                    
-        //         console.log("panier validated")
-        //         resolve(response)
-        //     })
-        //     .catch((e)=> {
-        //         console.log("erreur"+e)
-        //     })
+        axios.post(requestString,{
+            clientId:idClient, 
+            adresseId: adresseId,
+            express: isExpress,
+            collecte: isCollect,
+            instructions:instructions,
+            pointsFideliteUtilises:1,
+            etatId:1
+        })
+        .then(response => {
+                                
+            console.log("panier validated")
+            resolve(response)
+        })
+        .catch((e)=> {
+            console.log("erreur"+e)
+        })
     })  
 }
 
 
-
+let getUserConnectedFromLocalStorage=()=>{
+    return localStorageService.get('user')
+}
 
 
 export const panierService = {
@@ -139,5 +136,6 @@ export const panierService = {
     setProduitInPanier,
     editProduitFromPanier,
     validerPanier,
+    getUserConnectedFromLocalStorage,
 }
 

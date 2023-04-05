@@ -65,7 +65,8 @@ let putClientByEmail = async (email) => {
       throw error;
     }   
   }
-  
+ 
+
 
 export const accountService = {
     login,
