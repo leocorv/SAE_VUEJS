@@ -13,7 +13,9 @@ export default {
     methods: {
         //get panier
         getPanier(){
-          const temp = panierService.getUserConnectedFromLocalStorage()
+          // const temp = panierService.getUserConnectedFromLocalStorage()
+          const temp={clientId:1}
+          // console.log(temp)
           if (temp!=null)  
           {
             this.idClient=temp.clientId
@@ -49,6 +51,7 @@ export default {
         },
         //edit
         toggleReadonly(indexLigne){
+          console.log("readonlyyyyy")
           if (this.panier[indexLigne].prixReadonly)
             this.panier[indexLigne].prixReadonly=false
           else
@@ -98,7 +101,7 @@ export default {
         </div>
     <!-- affichage -->
     <div v-else class="flex flex-col h-full px-10 gap-14 place-items-center text-lg ">
-      <div v-for="ligne,index in this.panier" class="flex flex-row place-items-center ">
+      <div v-for="ligne,index in this.panier" class="flex flex-row place-items-center " data-test="ligne">
         <div  class="px-5 flex w-2/3Screen gap-10 h-auto border border-gray-600 py-5 rounded place-items-center justify-center ">
           <!-- photo -->
           <div class="flex flex-row border border-gray-300 p-2 h-40 w-auto">
@@ -150,7 +153,7 @@ export default {
           <div v-if="ligne.prixReadonly" class="flex flex-col gap-4">
             <!-- edit -->
             <div class="ml-5">
-              <button @click="toggleReadonly(index)" 
+              <button @click="toggleReadonly(index)" button-modif
                 class="w-32 transition-all text-base rounded px-2 py-1 border-2 border-blue-500 bg-blue-200 hover:cursor-pointer hover:bg-blue-300 hover:border-blue-800">
                 <p>Modifier la quantité</p>
               </button>
