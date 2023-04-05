@@ -126,8 +126,9 @@ let validerPanier = (idClient,adresseId,isExpress,isCollect,instructions) => {
 
 
 let getUserConnectedFromLocalStorage=()=>{
-    const test =localStorageService.get('user')
-    return test
+    // const test =localStorageService.get('user')
+    // return test
+    return null
 }
 
 

@@ -1,6 +1,7 @@
 <script>
 import { panierService } from "../_services"
 export default {
+  props:["test"],
     data() {
         return{
             //panier
@@ -12,17 +13,26 @@ export default {
     methods: {
         //get panier
         getPanier(){
-          panierService.getProduitsPanier(this.idClient).then(response => {
-            this.panier = response
-            if(this.panier!=null)
+          const temp = panierService.getUserConnectedFromLocalStorage()
+          if (temp!=null)  
+          {
+            this.idClient=temp.clientId
+            // this.idClient=2;
+            if (this.idClient!=null)
             {
-              this.panier.forEach((ligne,index)=>{
-                this.panier[index].prixReadonly=true
-                this.panier[index].quantiteTemp=this.panier[index].quantite
+              panierService.getProduitsPanier(this.idClient).then(response => {
+                this.panier = response
+                if(this.panier!=null)
+                {
+                  this.panier.forEach((ligne,index)=>{
+                    this.panier[index].prixReadonly=true
+                    this.panier[index].quantiteTemp=this.panier[index].quantite
+                  })
+                  this.calculePrixTotal()
+                }
               })
-              this.calculePrixTotal()
             }
-          })
+          }
         },
         calculePrixTotal(){
           this.prixTotal=0
@@ -62,12 +72,7 @@ export default {
         },
     },   
     mounted() {
-        this.idClient=panierService.getUserConnectedFromLocalStorage().clientId
-        // this.idClient=2;
-        if (this.idClient!=null)
-        {
-          this.getPanier()
-        }
+      this.getPanier()
     }
 }
 

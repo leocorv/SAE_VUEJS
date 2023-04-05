@@ -1,3 +1,4 @@
+///<reference types="vitest" />
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -15,5 +16,9 @@ export default defineConfig({
   server: {
       port: 8246,
       host: "0.0.0.0"
+  },
+  test: {
+    globals:true,
+    environment: 'happy-dom'
   }
 })
