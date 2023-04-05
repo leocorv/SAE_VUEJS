@@ -1,10 +1,10 @@
-<script setup>
-import {produitsService } from "../_services"
-</script>
 <script>
+import {produitsService, panierService } from "../_services"
 export default {
     data() {
         return{
+            idUser:null,//utilisateur connecté (ou non)
+            error:null,//erreurs à afficher
             //id du produit
             id:this.$route.params.idProduit,
             //produit
@@ -28,10 +28,6 @@ export default {
                 this.produit = response
             })
         },
-        //achat
-        btnAcheterClick(){
-            console.log(this.quantite)
-        },
         //changer variante (déclanchée par click sur couleur)
         changerVariante(index){
             //changement index variante
@@ -41,6 +37,44 @@ export default {
         retour() {
             console.log("back")
             this.$router.back()
+        },
+        //ajout panier
+        ajouterAuPanier(){
+            console.log("panier")
+            const idVariante = this.produit.variantesProduitNavigation[this.indexVariante].idVariante
+            this.idUser = panierService.getUserConnectedFromLocalStorage() //il faudra récup le user connecté sinon rediriger vers page connexion
+            this.idUser = 2
+            const qtite = this.quantite
+            if (this.idUser!=null) {
+                
+                //check if not in panier
+                panierService.getProduitsPanier(3).then(response => {
+                    if(response!=null){
+                        console.log(response)
+                        const objInPanier=response.find(r=>r.varianteId==idVariante)
+                        if (objInPanier!=null){
+                            panierService.editProduitFromPanier(objInPanier.ligneId,this.idUser,idVariante,qtite)
+                            .then(response => {
+                                console.log(response.status)
+                                if(response.status==204){
+                                this.$router.push('/panier')
+                                }
+                                //204 if succed
+                            })
+                        }else{
+                            panierService.setProduitInPanier(idUser,idVariante,qtite).then(response => {
+                            console.log(response.status)
+                            //undefined if succed
+                            if(response.status==201){
+                                this.$router.push('/panier')
+                            }
+                            })
+                        }
+                    }
+                })
+            }else{
+                this.error="Vous devez vous connecter pour ajouter un article au panier !"
+            }
         },
 
     },   
@@ -94,10 +128,10 @@ export default {
                         <div v-else class="flex flex-row gap-2">
                             <p class=" font-semibold">Prix : </p>
                             <p class="line-through text-red-700">
-                                {{produit.variantesProduitNavigation[this.indexVariante].prix}} €
+                                {{parseFloat(produit.variantesProduitNavigation[this.indexVariante].prix).toFixed(1)}} €
                             </p>
                             <p  class=" text-emerald-700  font-bold">
-                                {{produit.variantesProduitNavigation[this.indexVariante].prix*produit.variantesProduitNavigation[this.indexVariante].promo}}                             €
+                                {{parseFloat(produit.variantesProduitNavigation[this.indexVariante].prix*produit.variantesProduitNavigation[this.indexVariante].promo).toFixed(1)}}                             €
                             </p>
                         </div>
                         <!-- couleurs -->
@@ -156,10 +190,13 @@ export default {
                             </div>
                         <!-- btn acheter -->
                         <div class="w-full flex justify-center">
-                            <button @click="$event=> btnAcheterClick()"
+                            <button @click="$event=> this.ajouterAuPanier()"
                                 class="border-2 border-yellow-600 hover:bg-yellow-600 w-48 rounded-md transition-all mt-8 mb-10">
-                                Acheter todo
+                                Ajouter au panier
                             </button>
+                        </div>
+                        <div v-if="this.erreur!=null">
+                            <p class="text-xl text-red-600 font-bold">{{ erreur }}</p>
                         </div>
                     </div>
                 </div>

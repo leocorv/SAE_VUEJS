@@ -77,6 +77,7 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
             //request
             axios.get(requestString)
                 .then(response => {
+                    console.log(response.data[0])
                     response.data.forEach(pdt => {
                         //liste d'avis (plus simple pour la suite)
                         pdt.avis=[]
@@ -100,9 +101,9 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
                             }
                         })
                         if(min!=max){
-                            pdt.prixMinMax+=min+"€ - "+max+"€"
+                            pdt.prixMinMax+=parseFloat(min).toFixed(1)+"€ - "+parseFloat(max).toFixed(1)+"€"
                         }else{
-                            pdt.prixMinMax+=min+"€"
+                            pdt.prixMinMax+=parseFloat(min).toFixed(1)+"€"
                         }
 
                         produitsList.push(pdt)

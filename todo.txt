@@ -1,8 +1,4 @@
-chargement categorie !!!
-
-put -> modif ligne commande
-post -> ajouter lignecommande
-post -> ajouter commande une fois panier payé
+detail produit -> get le user
 
 
 

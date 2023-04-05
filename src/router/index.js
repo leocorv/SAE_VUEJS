@@ -7,6 +7,8 @@ import PanierView from '../views/PanierView.vue'
 import ProfilView from '../views/ProfilView.vue'
 import CategorieView from '../views/CategorieView.vue'
 import DetailProduitView from '../views/DetailProduitView.vue'
+import InfoPaiement from '../views/InformationsPaiement.vue'
+import Merci from '../views/Merci.vue'
 
 
 const router = createRouter({
@@ -64,6 +66,16 @@ const router = createRouter({
       path: '/panier',
       name: 'panier',
       component: PanierView
+    },
+    {
+      path: '/infosPaiement',
+      name: 'infosPaiement',
+      component: InfoPaiement
+    },
+    {
+      path: '/merci',
+      name: 'merci',
+      component: Merci
     }
   ]
 })

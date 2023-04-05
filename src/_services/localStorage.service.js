@@ -11,6 +11,17 @@ function setWithExpiry(itemName, value, minutes) {
     localStorage.setItem(itemName, JSON.stringify(item))
 }
 
+function get(itemName){
+    const itemStr = localStorage.getItem(itemName)
+    // Si l'item n'existe pas, on return null
+    if (!itemStr) {
+        return null
+    }
+    //sinon on le parse
+    const item = JSON.parse(itemStr)
+    return item.value
+}
+
 //pemet de récupérer un item (s'il existe et s'il n'est pas expiré) dans le local storage
 //return null or la value de l'item
 function getWithExpiry(itemName) {
@@ -36,4 +47,5 @@ function getWithExpiry(itemName) {
 export default {
     setWithExpiry,
     getWithExpiry,
+    get,
 }

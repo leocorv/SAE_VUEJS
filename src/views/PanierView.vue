@@ -1,19 +1,18 @@
-<script setup>
-import { panierService } from "../_services"
-</script>
 <script>
+import { panierService } from "../_services"
 export default {
     data() {
         return{
             //panier
             panier:'loading',
             prixTotal:0,
+            idClient:null,
         }
     },
     methods: {
         //get panier
         getPanier(){
-          panierService.getProduitsPanier().then(response => {
+          panierService.getProduitsPanier(this.idClient).then(response => {
             this.panier = response
             if(this.panier!=null)
             {
@@ -32,10 +31,9 @@ export default {
           })
         },
         //suppr
-        deleteLigne(idLigne){
+        deleteLigne(idLigne,index){
           panierService.deleteProduitFromPanier(idLigne).then(response => {
-            console.log(response)
-            console.log(idLigne)
+            this.panier.splice(index,1)
             this.calculePrixTotal()
           })
         },
@@ -52,10 +50,24 @@ export default {
           this.toggleReadonly(indexLigne)
           this.calculePrixTotal()
           //save in database todo
+          panierService.editProduitFromPanier(this.panier[indexLigne].ligneId,this.idClient,this.panier[indexLigne].varianteId,this.panier[indexLigne].quantite)
+            .then(response => {
+              console.log(response)
+              //204 if succed
+              
+            })
+        },
+        validerPanier(){
+          this.$router.push('/infosPaiement')
         },
     },   
     mounted() {
-        this.getPanier()
+        // this.idClient=panierService.getUserConnectedFromLocalStorage()
+        this.idClient=2;
+        if (this.idClient!=null)
+        {
+          this.getPanier()
+        }
     }
 }
 
@@ -63,14 +75,16 @@ export default {
 </script> 
 
 <template>
-
+  <div v-if="panier!=null">
+    {{ }}
+  </div>
   <div class="h-auto mt-5 mb-5 flex flex-col place-self-center justify-center ">
     <h2 class="text-5xl mb-24 mt-10">Mon panier</h2>
     <!-- loading / vide -->
     <div v-if="this.panier == 'loading'" class=" h-56 flex flex-col place-items-center justify-center">
         <p class="text-2xl flex flex-col place-items-center justify-center gap-5">Chargement ...</p>
     </div>
-    <div v-else-if="this.panier==null" class=" h-56 flex flex-col place-items-center justify-center mt-5">
+    <div v-else-if="this.panier==null || this.panier.length==0" class=" h-56 flex flex-col place-items-center justify-center mt-5">
             <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Votre panier est vide</p>
             <div class=" text-lg flex flex-row gap-2 mt-10 place-items-center justify-center ">
               <p>Allez voir la</p>
@@ -109,13 +123,23 @@ export default {
             <p class="">Quantité</p>
             <p>:</p>
             <input type="number" v-model="ligne.quantite" readonly :max="ligne.variantesLignePanierNavigation.stock" min="1"
-              class="border-2 px-1 rounded bg-gray-200 border-gray-400 w-14 font-semibold">
+              class="border-2 px-1 rounded bg-gray-200 border-gray-400 w-16 font-semibold">
           </div>
           <div v-else class="flex flex-row gap-2 place-items-center">
             <p class="">Quantité</p>
             <p>:</p>
             <input type="number" v-model="ligne.quantiteTemp" :max="ligne.variantesLignePanierNavigation.stock" min="1"
-              class="border-4 px-1 rounded border-blue-700 bg-blue-300 w-14 font-semibold scale-110">
+              v-on:focusout="$event=> {
+                //si on écrit manuellement une valeur>stock
+                if(ligne.quantiteTemp>ligne.variantesLignePanierNavigation.stock)
+                {
+                  ligne.quantiteTemp=ligne.variantesLignePanierNavigation.stock
+                }
+                else if (ligne.quantiteTemp<=0){
+                  ligne.quantiteTemp=1
+                }
+              }"
+              class="border-4 px-1 rounded border-blue-700 bg-blue-300 w-16 font-semibold scale-110">
           </div>
         </div>
           <div v-if="ligne.prixReadonly" class="flex flex-col gap-4">
@@ -128,7 +152,7 @@ export default {
             </div>
             <!-- suppr -->
             <div class="ml-5">
-                <button @click="deleteLigne(ligne.ligneId)"
+                <button @click="deleteLigne(ligne.ligneId,index)"
                   class="w-32 transition-all text-base rounded px-2 py-1 border-2 border-red-500 bg-red-200 hover:cursor-pointer hover:bg-red-300 hover:border-red-800">
                   <p>Supprimer</p>
                 </button>
@@ -142,7 +166,7 @@ export default {
                 <p>Valider les changements</p>
               </button>
             </div>
-            <!-- suppr -->
+            <!-- annuler -->
             <div class="ml-5">
               <button @click="toggleReadonly(index)"
                 class="w-32 transition-all text-base rounded px-2 py-1 border-2 border-orange-500 bg-orange-200 hover:cursor-pointer hover:bg-orange-300 hover:border-orange-800">
@@ -159,7 +183,7 @@ export default {
         </div>
         <!-- paiement -->
         <div class="flex flex-row place-items-center text-3xl justify-end">
-          <button class="transition-all  hover:scale-105 rounded px-2 py-1 border-2 border-yellow-500 bg-yellow-200 hover:cursor-pointer hover:bg-yellow-300 hover:border-yellow-800">
+          <button @click="validerPanier()" class="transition-all  hover:scale-105 rounded px-2 py-1 border-2 border-yellow-500 bg-yellow-200 hover:cursor-pointer hover:bg-yellow-300 hover:border-yellow-800">
             Procéder au paiement
           </button>
         </div>
