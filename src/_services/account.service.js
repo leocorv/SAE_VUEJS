@@ -36,6 +36,8 @@ let getUserByEmail = (email) => {
     return Axios.get(lien).then((response)=> {
         user.push(response.data);
         localStorage.setItem('user', JSON.stringify(user[0]));
+        console.log(user[0]);
+        // localStorage.setItem('adresse', JSON.stringify())
     });    
 }
 
@@ -64,8 +66,56 @@ let putClientByEmail = async (email) => {
     } catch(error) {
       throw error;
     }   
-  }
- 
+}
+  
+let getAdresseById = async (id) => {
+    try {
+        const response = await Axios.get('/api/Adresses/GetById/${id}');
+        const address = response.data;
+        localStorage.setItem("address", JSON.stringify(address));
+        return address;
+    } catch (error) {
+        throw error;
+    }
+};
+
+let putAdresseById = async (id) => {
+    const address = JSON.parse(localStorage.getItem("address"));
+    try {
+        const response = await Axios.put('/api/Adresses/PutAdresse/${id}', address);
+        return true;
+    } catch (error) {
+        throw error;
+    }
+};
+
+let postClient = async (user) => {
+    try {
+        const response = await Axios.post('/api/Clients/PostClient', user);
+        return true;
+    } catch (error) {
+        throw error;
+    }
+}
+
+let getAdresseByClientId = async (user) => {
+    try {
+        const response = await Axios.get('/api/Adresses/GetAdresseByClientId');
+        return true;
+    } catch (error) {
+        throw error;
+    }
+}
+
+let putReplacePassword = async (IDuser, oldpassword, newpassword) => {
+    try {
+        const response = await Axios.put('/api/Clients/ReplacePassword?oldPassword='+oldpassword+'&newPassword='+newpassword+'&idClient='+IDuser);
+        console.log(response);
+        return true;
+    } catch (error){
+        throw error;
+    }
+}
 
 
 export const accountService = {
@@ -75,5 +125,8 @@ export const accountService = {
     isLogged,
     getUserByEmail,
     getEmailFromToken,
-    putClientByEmail
+    putClientByEmail,
+    putAdresseById,
+    getAdresseById,
+    postClient,
 }

@@ -48,6 +48,7 @@
 import { useAuthStore } from '../../store.js';
 import { accountService } from '@/_services';
 import router from '../../router/index.js'
+import crypto from '../../_services/cryptage.js';
 
 
 export default {
@@ -61,8 +62,25 @@ export default {
     };
   },
   methods: {
+    // encrypt(password) {
+    //     const encryptedPassword = CryptoJS.AES.encrypt(password, import.meta.env.VITE_CRYPTO_KEY).toString();
+    //     return encryptedPassword;
+    // },
     async onSubmit() {
       try {
+
+        //A mettre en commentaire si on veut se connecter avec un compte INSERT
+        const encryptedPassword = crypto.encrypt(this.user.Password, import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
+        
+        // console.log(encryptedPassword == "");
+        // console.log(encryptedPassword);
+        // console.log("");
+        
+        // const decryptedPassword = crypto.decrypt(encryptedPassword, import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
+        // console.log(decryptedPassword);
+        // console.log(crypto.decrypt("", import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE));
+        this.user.Password = encryptedPassword;
+
         const res = await accountService.login(this.user);
         // console.log(res.data.token.result);
         await accountService.saveToken(res.data.token.result);
@@ -83,6 +101,7 @@ export default {
       } catch (e) {
         document.getElementById('error_span').classList.remove('hidden');
         // console.log(e);
+        this.user.Password = '';
       }
     }
   }

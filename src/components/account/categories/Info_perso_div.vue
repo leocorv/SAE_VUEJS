@@ -22,7 +22,6 @@
       <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" type="email" id="mail" v-model="mail" :readonly="!editing" />
       <span class="text-red-600 whitespace-nowrap max-w-[10rem]">{{ emailError }}</span>
     </div>
-
     <div class="flex flex-col items-start mt-3">
       <label for="telephone">Téléphone:</label>
       <input
@@ -82,6 +81,7 @@ export default {
   },
   mounted() {
     const user = JSON.parse(localStorage.getItem("user"));
+    // console.log(user);
     this.prenom = user.prenom;
     this.nom = user.nom;
     this.mail = user.mail;
@@ -151,7 +151,7 @@ export default {
 
             const errorMsg = error.response.data;
 
-            if (errorMsg.includes("IX_t_e_client_clt_clt_email")) {
+            if (typeof errorMsg === 'string' && errorMsg.includes("IX_t_e_client_clt_clt_email")) {
               this.emailError = "L'adresse e-mail est déjà existante ou incorrecte.";
             }
           }
