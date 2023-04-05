@@ -62,8 +62,8 @@ export default {
         },
     },   
     mounted() {
-        // this.idClient=panierService.getUserConnectedFromLocalStorage()
-        this.idClient=2;
+        this.idClient=panierService.getUserConnectedFromLocalStorage().clientId
+        // this.idClient=2;
         if (this.idClient!=null)
         {
           this.getPanier()

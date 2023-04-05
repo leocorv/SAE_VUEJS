@@ -42,8 +42,7 @@ export default {
         ajouterAuPanier(){
             console.log("panier")
             const idVariante = this.produit.variantesProduitNavigation[this.indexVariante].idVariante
-            this.idUser = panierService.getUserConnectedFromLocalStorage() //il faudra récup le user connecté sinon rediriger vers page connexion
-            this.idUser = 2
+            this.idUser=panierService.getUserConnectedFromLocalStorage().clientId //il faudra récup le user connecté sinon rediriger vers page connexion
             const qtite = this.quantite
             if (this.idUser!=null) {
                 
