@@ -167,18 +167,20 @@ describe('API', () => {
         
         //ASSERT
         //pour l'instant on est en readonly = true donc on a accès qu'a ces boutons
-        expect(buttonsOfLine[0].text()).toContain('Modifier la quantité') //btn 1
-        expect(buttonsOfLine[1].text()).toContain('Supprimer')  //btn 2
+        expect(panier[0].text()).toContain('Modifier la quantité') //btn 1
+        expect(panier[0].text()).toContain('Supprimer')  //btn 2
         expect(wrapper.vm.panier[0].prixReadonly).toEqual(true) //readonly true
         
         //ACT
         buttonsOfLine[0].trigger('click') //click sur 'edit' pour enlever le readonly
+        await new Promise(r => setTimeout(r, 20)); //sleep nécessaire car la page doit reload
         
         //ASSERT
         expect(confirmSpy).toHaveBeenCalledOnce() //vérifie qu'on a bien appelé la méthode
         expect(wrapper.vm.panier[0].prixReadonly).toEqual(false) //readonly false
-        //il faudrait teset si les boutons ont bien changés
-        //je n'y arrive pas        
+        expect(panier[0].text()).toContain('Valider les changements')  //btn 1
+        expect(panier[0].text()).toContain('Annuler les changements')  //btn 2
+        
     })  
 })
 describe('Panier vue component', () => {
