@@ -11,7 +11,7 @@
                 <hr>
                 <div id="info_account_div" class="flex justify-evenly items-center p-4">
                     <InfosView />
-                    <AdresseUserView />
+                    <!-- <AdresseUserView /> -->
                 </div>
                 <div id="commandes_div" class="hidden justify-between items-center">
                     <CommandesView />

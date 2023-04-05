@@ -89,6 +89,15 @@ let putAdresseById = async (id) => {
     }
 };
 
+let postClient = async (user) => {
+    try {
+        const response = await Axios.post('/api/Clients/PostClient', user);
+        return true;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const accountService = {
     login,
     logout,
@@ -99,4 +108,5 @@ export const accountService = {
     putClientByEmail,
     putAdresseById,
     getAdresseById,
+    postClient,
 }
