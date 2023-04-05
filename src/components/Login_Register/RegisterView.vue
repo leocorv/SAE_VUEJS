@@ -83,8 +83,10 @@
 
 
 <script>
+import { useAuthStore } from '../../store.js';
 import { accountService } from '@/_services';
 import crypto from '../../_services/cryptage.js';
+import router from '../../router/index.js'
 
 export default {
     data() {
@@ -142,8 +144,29 @@ export default {
             console.log(user);
             try {
                 const response = await accountService.postClient(user);
+
+                // var uncryptPassword = crypto.decrypt(user.password, import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
+                var userLogin = {
+                    Mail: user.mail,
+                    Password: user.password,
+                };
+                console.log(userLogin);
+                const res = await accountService.login(userLogin);
+                console.log(res.data.token.result);
+                await accountService.saveToken(res.data.token.result);
+
+                console.log(useAuthStore().isConnected);
+                useAuthStore().isConnected = true;
+                console.log(useAuthStore().isConnected);
+
+                var emailToken = accountService.getEmailFromToken()
+                console.log(emailToken)
+                await accountService.getUserByEmail(emailToken)
+
+                await router.push('/myaccount');
+                await location.reload()
                 // Traite la réponse
-                alert('Inscription réussie !');
+                // alert('Inscription réussie !');
                 console.log(response);
             } catch (error) {
                 // Gére l'erreur

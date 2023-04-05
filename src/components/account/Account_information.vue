@@ -12,6 +12,7 @@
                 <div id="info_account_div" class="flex justify-evenly items-center p-4">
                     <InfosView />
                     <!-- <AdresseUserView /> -->
+                    <Modification_mdpView />
                 </div>
                 <div id="commandes_div" class="hidden justify-between items-center">
                     <CommandesView />
@@ -28,6 +29,7 @@
 import InfosView from './categories/Info_perso_div.vue'
 import CommandesView from './categories/Commande_account.vue'
 import PaiementView from './categories/Methodes_Paiement.vue'
+import Modification_mdpView from './categories/Modif_mdp_div.vue'
 import AdresseUserView from './categories/Adresse_User_div.vue'
 
 document.addEventListener('DOMContentLoaded', function() {

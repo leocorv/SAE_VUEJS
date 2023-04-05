@@ -81,7 +81,7 @@ export default {
   },
   mounted() {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
+    // console.log(user);
     this.prenom = user.prenom;
     this.nom = user.nom;
     this.mail = user.mail;
