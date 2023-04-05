@@ -1,10 +1,4 @@
-detail produit -> get le user pour mettre dans panier 
-                -> si pas de user -> dire de se connecter
-
-panier.service -> setproduit -> enlever ligneid (autoincrement)
-
-post -> ajouter commande une fois panier payé
--> a besoin de idclient/adresse/express=livraison express/collect=point relai/instructions=donnees donne par user
+detail produit -> get le user
 
 
 
