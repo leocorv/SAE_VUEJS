@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-col mt-2 mr-10">
+  <div class="flex-col mt-2 ml-5">
     <h2 class=" text-xl font-bold">Informations personnelles</h2>
     <div class="flex flex-col items-start mt-3">
       <label for="civilite">Civilité:</label>
