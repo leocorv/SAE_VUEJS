@@ -1,4 +1,9 @@
 
+adresse : check if exsists
+        yes : create commande
+        no : create adresse
+            get adresse
+            create commande
 
 afficher nomenclature (p3)
 

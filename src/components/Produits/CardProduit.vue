@@ -34,12 +34,12 @@
                     <p class=" w-1/3">Couleurs :</p>
                     <div class=" w-2/3 flex flex-wrap">
                         <div v-for="(variante, index) in produit.variantesProduitNavigation" class="border-2 p-1">
-                            <div v-if="idCouleursSelect.includes(variante.couleurVarianteNavigation.idCouleur)"
+                            <div v-if="idCouleursSelect.includes(variante.couleursVarianteNavigation.idCouleur)"
                                 class=" border-4 border-black rounded-full w-7 h-7 flex place-content-center items-center"
-                                :style="{'background-color':(variante.couleurVarianteNavigation.codeHexa)}">
+                                :style="{'background-color':(variante.couleursVarianteNavigation.codeHexa)}">
                             </div>
                             <div v-else class=" border-2 border-gray-300 rounded-full w-6 h-6 flex place-content-center items-center"
-                                :style="{'background-color':(variante.couleurVarianteNavigation.codeHexa)}">
+                                :style="{'background-color':(variante.couleursVarianteNavigation.codeHexa)}">
                                 <p class=" text-xs"></p>
                             </div>
                         </div>

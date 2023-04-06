@@ -42,8 +42,7 @@ export default {
         ajouterAuPanier(){
             console.log("panier")
             const idVariante = this.produit.variantesProduitNavigation[this.indexVariante].idVariante
-            this.idUser=panierService.getUserConnectedFromLocalStorage().clientId //il faudra récup le user connecté sinon rediriger vers page connexion
-            const qtite = this.quantite
+            this.idUser=panierService.getUserConnectedFromLocalStorage().clientId
             if (this.idUser!=null) {
                 
                 //check if not in panier
@@ -52,7 +51,7 @@ export default {
                         console.log(response)
                         const objInPanier=response.find(r=>r.varianteId==idVariante)
                         if (objInPanier!=null){
-                            panierService.editProduitFromPanier(objInPanier.ligneId,this.idUser,idVariante,qtite)
+                            panierService.editProduitFromPanier(objInPanier.ligneId,this.idUser,idVariante,this.quantite)
                             .then(response => {
                                 console.log(response.status)
                                 if(response.status==204){
@@ -61,7 +60,7 @@ export default {
                                 //204 if succed
                             })
                         }else{
-                            panierService.setProduitInPanier(idUser,idVariante,qtite).then(response => {
+                            panierService.setProduitInPanier(idUser,idVariante,this.quantite).then(response => {
                             console.log(response.status)
                             //undefined if succed
                             if(response.status==201){

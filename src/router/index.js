@@ -65,12 +65,19 @@ const router = createRouter({
     {
       path: '/panier',
       name: 'panier',
-      component: PanierView
+      component: PanierView,
     },
     {
       path: '/infosPaiement',
       name: 'infosPaiement',
-      component: InfoPaiement
+      component: InfoPaiement,
+      beforeEnter: (to, from, next) => {
+        if (useAuthStore().isConnected == true) {
+          next()
+        } else {
+          next('/panier')
+        }
+      }
     },
     {
       path: '/merci',

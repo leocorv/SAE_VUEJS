@@ -140,12 +140,13 @@ const mockLists = {
 }
 
 
+
 vi.spyOn(axios, 'get').mockResolvedValue(mockLists)
 
 describe('API', () => {
-    it('retourne le panier (teste le composant + le service de panier)', async () => {
-        const wrapper = mount(PanierView)
-        
+  it('retourne le panier (teste le composant + le service de panier)', async () => {
+    const wrapper = mount(PanierView)
+    
 
         expect(axios.get).toHaveBeenCalledOnce()
 

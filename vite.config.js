@@ -19,6 +19,8 @@ export default defineConfig({
   },
   test: {
     globals:true,
-    environment: 'happy-dom'
+    environment: 'happy-dom',
+    setupFiles: ['vitest-localstorage-mock'],
+    mockReset: false,
   }
 })

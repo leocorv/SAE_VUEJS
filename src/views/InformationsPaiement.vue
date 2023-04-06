@@ -1,8 +1,8 @@
 <template>       
     <div id="connexion" class="text-center flex flex-col items-center mb-8">
         <h1 class="text-5xl font-semibold mb-8">Informations nécessaires avant le paiement</h1>
-        <div class="block justify-around text-center w-full max-w-md">
-          <div class="px-10 py-4 m-4 text-center items-center border-gray-500/10 border-2 border-solid rounded-3xl shadow-lg">
+        <div class=" block justify-around text-center w-full max-w-md">
+          <div :class="{hidden:this.idClient==null}" class="px-10 py-4 m-4 text-center items-center border-gray-500/10 border-2 border-solid rounded-3xl shadow-lg">
                 <h3 class="text-2xl mb-4 font-bold" >Entrez l'adresse de livraison :</h3>
                 <div>
                     <input class="border border-gray-400 px-2 py-1 text-lg mb-4" maxlength="120"  id="input"/>
@@ -15,6 +15,13 @@
                 <hr class="mb-4" >
                 <h3 class="titleAddress text-xl pb-4 font-semibold" >Informations précises:</h3>
                 
+                <div>
+                    <label class="mt-4" for="numero">Numéro :</label>
+                    <div>
+                        <input class="border border-gray-400 px-2 py-1 my-2" v-model="numero"
+                            maxlength="255" id="numero" type="numero" name="numero" required autofocus>
+                    </div>
+                </div>
                 <div>
                     <label class="mt-4" for="rue">Rue* :</label>
                     <div>
@@ -73,7 +80,7 @@
                     </div>
                 </div>
                 
-                <div class="flex flex-col gap-4 mt-8 transition-all">
+                <div v-if="this.idClient!=null" class="flex flex-col gap-4 mt-8 transition-all">
                     <button @click="back()" class=" border border-red-400 bg-red-300 rounded hover:scale-105">
                         Annuler
                     </button>
@@ -81,10 +88,10 @@
                     <button @click="valider()" class="border border-green-400 bg-green-300 rounded hover:scale-105">
                         Valider
                     </button>
-                    <div v-if="this.erreur!=null">
-                        <p class="text-xl text-red-600 font-bold">{{ erreur }}</p>
-                    </div>
                 </div>
+            </div>
+            <div v-if="this.erreur!=null">
+                <p class="text-xl text-red-600 font-bold">{{ erreur }}</p>
             </div>
         </div>
     </div>
@@ -93,14 +100,17 @@
 
 <script>
 import { panierService } from '../_services'
-import { adresseService } from '../_services'
 
 
 
 export default {
     data() {
         return {
+            //client
+            idClient:null,
+            //adresse
             adresse:null,
+            numero:null,
             rue:null,
             ville:null,
             cp:null,
@@ -109,25 +119,29 @@ export default {
             isLivraisonExpress:false,
             isPointRelai:false,
             instructions:null,
-
             //error
             erreur:null,
-
             //api
             searchInput:null,
             requestUrl:'https://api-adresse.data.gouv.fr/search/?q=',
         }
     },
     methods: {
+        checkClientConnecte(){
+            const tempUser = panierService.getUserConnectedFromLocalStorage()
+            // const temp={clientId:1}
+            if (tempUser!=null) {
+                this.idClient=tempUser.clientId
+            }else{
+                this.erreur="Vous devez vous connecter !"
+            }
+        },
         valider(){
             if(this.rue!=null&&this.cp!=null&&this.ville!=null&&this.pays!=null)
             {
-                
-                // adresseService.addAdresse()
-
-                panierService.validerPanier(3,1,this.isLivraisonExpress,this.isPointRelai,this.instructions).then(response=>{
+                const adresseClientToSend={rue:this.rue,numero:this.numero,cp:this.cp,ville:this.ville,pays:this.pays}
+                panierService.validerPanier(this.idClient,adresseClientToSend,this.isLivraisonExpress,this.isPointRelai,this.instructions).then(response=>{
                     //if good
-                    console.log('end')
                     this.$router.push('/merci')
                     //else
                 })
@@ -162,10 +176,10 @@ export default {
                         let parent = document.getElementById("toWriteAddresses");
                         parent.innerHTML = ""
                         let id=0;
-
+                        
                         datas.features.forEach( (data)=>{
                             id++;
-
+                            
                             let myDiv = document.createElement("div");
                             myDiv.classList.add("border-b-2")
                             myDiv.classList.add("border-gray-700")
@@ -177,7 +191,8 @@ export default {
                             parent.appendChild(myDiv);
 
                             myDiv.addEventListener("click",()=>{
-                                this.rue = data.properties.name;
+                                this.rue = data.properties.street;
+                                this.numero=data.properties.housenumber
                                 this.ville =  data.properties.city;
                                 this.cp =  data.properties.postcode;
                                 this.pays = 'France';
@@ -197,6 +212,7 @@ export default {
 
     },   
     mounted() {
+        this.checkClientConnecte()
         this.startAutocomplete()
     }
 }

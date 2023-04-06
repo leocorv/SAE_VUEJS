@@ -13,13 +13,11 @@ export default {
     methods: {
         //get panier
         getPanier(){
-          // const temp = panierService.getUserConnectedFromLocalStorage()
-          const temp={clientId:1}
-          // console.log(temp)
+          const temp = panierService.getUserConnectedFromLocalStorage()
+          // const temp={clientId:1}
           if (temp!=null)  
           {
             this.idClient=temp.clientId
-            // this.idClient=2;
             if (this.idClient!=null)
             {
               panierService.getProduitsPanier(this.idClient).then(response => {
@@ -88,17 +86,25 @@ export default {
   </div>
   <div class="h-auto mt-5 mb-5 flex flex-col place-self-center justify-center ">
     <h2 class="text-5xl mb-24 mt-10">Mon panier</h2>
+    <!-- pas co -->
+    <div v-if="this.idClient==null" class=" h-56 flex flex-col place-items-center justify-center mt-5">
+      <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Vous n'êtes pas connecté !</p>
+      <div class=" text-lg flex flex-row gap-2 mt-10 place-items-center justify-center ">
+        <p>Connectez vous ou créez vous un compte</p>
+        <a class="underline text-purple-900 font-semibold hover:cursor-pointer hover:font-bold" href="/account"> ici</a>
+      </div>
+  </div>
     <!-- loading / vide -->
-    <div v-if="this.panier == 'loading'" class=" h-56 flex flex-col place-items-center justify-center">
+    <div v-else-if="this.panier == 'loading'" class=" h-56 flex flex-col place-items-center justify-center">
         <p class="text-2xl flex flex-col place-items-center justify-center gap-5">Chargement ...</p>
     </div>
     <div v-else-if="this.panier==null || this.panier.length==0" class=" h-56 flex flex-col place-items-center justify-center mt-5">
-            <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Votre panier est vide</p>
-            <div class=" text-lg flex flex-row gap-2 mt-10 place-items-center justify-center ">
-              <p>Allez voir la</p>
-              <a class="underline text-purple-900 font-semibold hover:cursor-pointer hover:font-bold" href="/"> boutique</a>
-            </div>
+        <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Votre panier est vide</p>
+        <div class=" text-lg flex flex-row gap-2 mt-10 place-items-center justify-center ">
+          <p>Allez voir la</p>
+          <a class="underline text-purple-900 font-semibold hover:cursor-pointer hover:font-bold" href="/"> boutique</a>
         </div>
+    </div>
     <!-- affichage -->
     <div v-else class="flex flex-col h-full px-10 gap-14 place-items-center text-lg ">
       <div v-for="ligne,index in this.panier" class="flex flex-row place-items-center " data-test="ligne">

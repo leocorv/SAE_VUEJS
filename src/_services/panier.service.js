@@ -98,13 +98,64 @@ let deleteProduitFromPanier = (idLigne) => {
 }
 
 //valider paiement (supprime les lignes panier et les met dans une nouvelle commande)
-let validerPanier = (idClient,adresseId,isExpress,isCollect,instructions) => {
+let validerPanier = async (idClient,adresse,isExpress,isCollect,instructions) => {
     //on renvoie une promesse
-    return new Promise(function(resolve){
-        //request string
+    return new Promise(async function(resolve){
+        //_________________________________
+        // ON VERIFIE SI L'ADRESSE EXISTE
+        var adresseId
+        var requestString = "https://localhost:7140/api/Adresses/GetAdresseByValues?" //base
+        requestString+="numero="+adresse.numero
+        requestString+="&rue="+adresse.rue
+        requestString+="&cp="+adresse.cp
+        await axios.get(requestString)
+            .then(response => {
+                adresseId=response.data
+            })
+            .catch((e)=> {
+                console.log("erreur"+e)
+                resolve (null)
+            })
+
+        if(adresseId==-1){ //si adresse introuvable
+            //_________________________________
+            // ON CREER ADRESSE
+            var requestString = "https://localhost:7140/api/Adresses/PostAdresse" //base
+            await axios.post(requestString,{//request
+                rue:adresse.rue,
+                numero:adresse.numero,
+                cp:adresse.cp,
+                ville:adresse.ville,
+                pays:adresse.pays,
+                telFixe:'',
+                remarque:''
+            })
+            .then(response => {
+                console.log("post adresse")
+            })
+            .catch((e)=> {
+                console.log("erreur"+e)
+                resolve (null)
+            })
+            //_________________________________
+            // ON RECUPERE ADRESSE
+            var requestString = "https://localhost:7140/api/Adresses/GetAdresseByValues?" //base
+            requestString+="numero="+adresse.numero
+            requestString+="&rue="+adresse.rue
+            requestString+="&cp="+adresse.cp
+            await axios.get(requestString)
+                .then(response => {
+                    adresseId=response.data
+                })
+                .catch((e)=> {
+                    console.log("erreur"+e)
+                    resolve (null)
+                })
+        }
+        //_________________________________
+        // ON CREER COMMANDE
         var requestString = "https://localhost:7140/api/Commandes/PostCommande" //base
-        //request
-        axios.post(requestString,{
+        await axios.post(requestString,{//request
             clientId:idClient, 
             adresseId: adresseId,
             express: isExpress,
@@ -114,21 +165,22 @@ let validerPanier = (idClient,adresseId,isExpress,isCollect,instructions) => {
             etatId:1
         })
         .then(response => {
-                                
             console.log("panier validated")
             resolve(response)
         })
         .catch((e)=> {
             console.log("erreur"+e)
+            resolve (null)
         })
+
+
+        
     })  
 }
 
 
 let getUserConnectedFromLocalStorage=()=>{
-    // const test =localStorageService.get('user')
-    // return test
-    return null
+    return localStorageService.get('user')
 }
 
 

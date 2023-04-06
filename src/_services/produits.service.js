@@ -50,6 +50,7 @@ let getNbPages = (idCategorie,couleursId,prixMin,prixMax) => {
 
 //get produits de la page
 let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
+    localStorage.clear()
     //on renvoie une promesse
     return new Promise(function(resolve){
         const name="produits"+idCategorie+"/"+numPage+"/"+couleursId+"/"+prixMin+"/"+prixMax //NOM DE LA VAR DU LOCALSTORAGE
@@ -77,7 +78,6 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
             //request
             axios.get(requestString)
                 .then(response => {
-                    console.log(response.data[0])
                     response.data.forEach(pdt => {
                         //liste d'avis (plus simple pour la suite)
                         pdt.avis=[]
