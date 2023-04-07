@@ -9,15 +9,15 @@
                     <div id="paiement" class=" input_categorie_button select-none cursor-pointer min-h-[3rem] max-w-[20rem] rounded-xl basis-full flex-auto border-solid border-black-500 border-2 m-4 flex justify-center items-center">Moyen de paiement</div>
                 </div>
                 <hr>
-                <div id="info_account_div" class="flex justify-evenly items-center p-4">
+                <div id="info_account_div" class="flex justify-evenly items-start p-4 ">
                     <InfosView />
-                    <!-- <AdresseUserView /> -->
+                    <AdresseUserView />
                     <Modification_mdpView />
                 </div>
-                <div id="commandes_div" class="hidden justify-between items-center">
+                <div id="commandes_div" class="hidden justify-center items-center h-screen">
                     <CommandesView />
                 </div>
-                <div id="paiement_div" class="hidden justify-between items-center">
+                <div id="paiement_div" class="hidden justify-center items-center h-screen">
                     <PaiementView />
                 </div>
             </div>
@@ -31,6 +31,7 @@ import CommandesView from './categories/Commande_account.vue'
 import PaiementView from './categories/Methodes_Paiement.vue'
 import Modification_mdpView from './categories/Modif_mdp_div.vue'
 import AdresseUserView from './categories/Adresse_User_div.vue'
+
 
 document.addEventListener('DOMContentLoaded', function() {
     var infos = document.getElementById('info_account');
@@ -80,6 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
         div_commandes.classList.remove('flex');
         div_commandes.classList.add('hidden');
     });
+    
+
   });
 
 </script>

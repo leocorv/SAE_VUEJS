@@ -13,6 +13,7 @@ export const useAuthStore = defineStore({
     }
   },
   actions: {
+    //A optimiser trop de "requete" pour rien
     startMonitoringConnection() {
       setInterval(() => {
         // console.log("isConnected :");
