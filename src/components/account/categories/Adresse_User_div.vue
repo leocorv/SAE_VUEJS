@@ -98,10 +98,11 @@ export default {
   async mounted() {
     const user = JSON.parse(localStorage.getItem("user"));
     const clientId = user.clientId;
-    console.log(clientId);
+    // console.log(clientId);
 
     try {
       const address = await accountService.getAdresseByClientId(clientId);
+      // console.log(address);
       if (address) {
         this.rue = address.rue;
         this.numero = address.numero;
@@ -122,38 +123,6 @@ export default {
     }
   },
   methods: {
-    async updateClient(addressId) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const clientId = user.clientId;
-
-      try {
-        const client = await accountService.getClientById(clientId);
-
-        const updatedClientsLivraisonsNavigation = {
-          clientId: clientId,
-          adresseId: addressId,
-          adresseALivreNavigation: {
-            adresseId: addressId,
-            rue: this.rue,
-            numero: this.numero,
-            cp: this.cp,
-            ville: this.ville,
-            pays: this.pays,
-            telFixe: this.telFixe,
-            remarque: this.remarque,
-            adressesClientsNavigation: [], // Vous pouvez récupérer ces informations depuis l'API si nécessaire
-            commandeAdresseNavigation: [], // Vous pouvez récupérer ces informations depuis l'API si nécessaire
-          },
-          clientALivreNavigation: clientId,
-        };
-
-        client.clientsLivraisonsNavigation = [updatedClientsLivraisonsNavigation];
-
-        await accountService.putClientById(clientId, client);
-      } catch (error) {
-        console.error("Error updatingclient:", error);
-      }
-    },
   async toggleEditing() {
     this.editing = !this.editing;
     if (!this.editing) {
@@ -167,49 +136,30 @@ export default {
         ville: this.ville,
         pays: this.pays,
         telFixe: this.telFixe,
-        remarque: this.remarque,
-        adressesClientsNavigation: this.hasAddress ? address.adressesClientsNavigation : [],
-        commandeAdresseNavigation: this.hasAddress ? address.commandeAdresseNavigation : [],
+        remarque: this.remarque
       };
 
       if (this.hasAddress) {
-        const updatedAddress = Object.assign({ adresseId: address.adresseId }, updatedData);
         localStorage.setItem("address", JSON.stringify(updatedAddress));
 
         try {
           await accountService.putAdresseById(address.adresseId, updatedAddress);
-          // await this.updateClient(address.adresseId);
           this.$forceUpdate();
         } catch (error) {
           console.error("Error updating address:", error.response);
         }
       } else {
         try {
-          const newAddress = await accountService.postAddress(updatedData);
-          const completeAddress = { ...newAddress, adresseId: newAddress.adresseId };
-          localStorage.setItem("address", JSON.stringify(completeAddress));
+          const newAddress = await accountService.postAdresseWithClient(user.clientId,updatedData);
+
           this.hasAddress = true;
 
-          completeAddress.adressesClientsNavigation = [
-            {
-              clientId: user.clientId,
-              adresseId: newAddress.adresseId,
-              adresseALivreNavigation: null,
-              clientALivreNavigation: null
-            }
-          ];
-          localStorage.setItem("address", JSON.stringify(completeAddress));
-          console.log(completeAddress);
-          try {
-            await accountService.putAdresseById(completeAddress.adresseId, completeAddress);
-            // await this.updateClient(completeAddress.adresseId);
-            this.$forceUpdate();
-          } catch (error) {
-            console.error("Error updating address:", error.response);
-          }
+          localStorage.setItem("address", JSON.stringify(newAddress));
 
         } catch (error) {
           console.error("Error creating new address:", error.response);
+          this.hasAddress = true;
+          await location.reload()
         }
       }
     }

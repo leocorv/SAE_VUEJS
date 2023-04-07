@@ -15,7 +15,7 @@
                     <label>Mot de passe</label>
                     <div>
                         <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password" type="password" name="password" value required autocomplete="current-password"  v-model="user.Password"  title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères">
-                        <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     </div>
                 </div>
                 <span id="error_span" class=" text-sm hidden text-red-600">Veuillez saisir correctement votre adresse mail ou votre mot de passe.</span>
@@ -79,6 +79,9 @@ export default {
         // const decryptedPassword = crypto.decrypt(encryptedPassword, import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
         // console.log(decryptedPassword);
         // console.log(crypto.decrypt("", import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE));
+
+
+        
         this.user.Password = encryptedPassword;
 
         const res = await accountService.login(this.user);

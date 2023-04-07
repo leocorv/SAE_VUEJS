@@ -9,15 +9,15 @@
                     <div id="paiement" class=" input_categorie_button select-none cursor-pointer min-h-[3rem] max-w-[20rem] rounded-xl basis-full flex-auto border-solid border-black-500 border-2 m-4 flex justify-center items-center">Moyen de paiement</div>
                 </div>
                 <hr>
-                <div id="info_account_div" class="flex justify-evenly items-start p-4">
+                <div id="info_account_div" class="flex justify-evenly items-start p-4 ">
                     <InfosView />
                     <AdresseUserView />
                     <Modification_mdpView />
                 </div>
-                <div id="commandes_div" class="hidden justify-between items-center">
+                <div id="commandes_div" class="hidden justify-center items-center h-screen">
                     <CommandesView />
                 </div>
-                <div id="paiement_div" class="hidden justify-between items-center">
+                <div id="paiement_div" class="hidden justify-center items-center h-screen">
                     <PaiementView />
                 </div>
             </div>

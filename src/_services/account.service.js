@@ -10,6 +10,7 @@ let logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     localStorage.removeItem('address')
+    localStorage.removeItem('commandes')
 }
 
 let saveToken = (token) => {
@@ -37,7 +38,7 @@ let getUserByEmail = (email) => {
     return Axios.get(lien).then((response)=> {
         user.push(response.data);
         localStorage.setItem('user', JSON.stringify(user[0]));
-        console.log(user[0]);
+        // console.log(user[0]);
         // localStorage.setItem('adresse', JSON.stringify())
     });    
 }
@@ -124,8 +125,8 @@ let postClient = async (user) => {
 let getAdresseByClientId = async (clientId) => {
     try {
         const response = await Axios.get('/api/Adresses/GetAdresseByIdClient?idClient='+clientId);
-        console.log(response);
-        return true;
+
+        return response.data;
     } catch (error) {
         if (error.response.status === 500) {
             // console.error('');
@@ -160,11 +161,24 @@ let postAddress = async (address) => {
     }
 }
 
-// let getCommandesByIdClient = async (idClient) => {
-//     try{
-//         const response = await Axios.get('get')
-//     }
-// } 
+let postAdresseWithClient = async (idclient, adress) => {
+    try{
+        const response = await Axios.post('/api/Adresses/PostAdresseWithClient?clientId='+idclient, adress)
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+let getCommandesByIdClient = async (id) => {
+    try {
+    const response = await Axios.get('/api/Commandes/GetCommandesByIdClient?clientId=' + id);
+    return response.data;
+    } catch (error) {
+    console.error("Error getting commandes by client id:", error);
+    return [];
+    }
+}
 
 export const accountService = {
     login,
@@ -182,5 +196,7 @@ export const accountService = {
     postAddress,
     getClientById,
     putClientById,
+    getCommandesByIdClient,
+    postAdresseWithClient,
     
 }
