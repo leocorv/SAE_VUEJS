@@ -141,7 +141,7 @@ let getAdresseByClientId = async (clientId) => {
 let putReplacePassword = async (IDuser, oldpassword, newpassword) => {
     try {
         const response = await Axios.put('/api/Clients/ReplacePassword?oldPassword='+oldpassword+'&newPassword='+newpassword+'&idClient='+IDuser);
-        // console.log(response);
+        console.log(response);
         if (response.status === 200) {
             return true ;
         } else {

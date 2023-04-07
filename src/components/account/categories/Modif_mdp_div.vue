@@ -52,6 +52,7 @@ export default {
                     var oldpasswordCrypted = crypto.encrypt(this.oldpassword.toString(), import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
                     var newpasswordCrypted = crypto.encrypt(this.newpassword.toString(), import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
                     const response = await accountService.putReplacePassword(idClient, oldpasswordCrypted, newpasswordCrypted);
+                    console.log(response);
                     if(response == true){
                         this.messageSuccess = "Votre mot de passe a bien été modifié."
                         user.password = newpasswordCrypted;
