@@ -36,8 +36,8 @@ export default {
       <!-- 1 bouton = 1 categorie  -->
       <div class="px-4 py-2  border border-white transition-all hover:border-gray-600 w-full h-full hover:cursor-pointer">
         <router-link :to="{name: 'categorie', params:{idCategorie: categorie.categorieid}}">
-          <button>
-            {{ categorie.libelle }}
+          <button :id="'button'+categorie.categorieid">
+            {{ categorie.libelle}}
           </button>
         </router-link>
       </div>

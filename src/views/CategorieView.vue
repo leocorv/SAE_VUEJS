@@ -84,7 +84,7 @@ export default {
 <template>
 <div>
     <div class="flex text-5xl justify-center font w-full pb-10 mt-6">
-        <h2>Nos produits</h2>   
+        <h2 id="title">Nos produits</h2>   
     </div>
     
     <!-- mon component de tri -->

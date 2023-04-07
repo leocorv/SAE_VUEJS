@@ -70,7 +70,6 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
             if(prixMax!=null){
                 requestString+="&maxprix="+prixMax
             }
-            
             //request
             axios.get(requestString)
                 .then(response => {
@@ -132,7 +131,6 @@ let getProduitById = (idProduit) => {
         axios.get(requestString)
             .then(response => {
                 produit = response.data
-
                 //liste d'avis (plus simple)
                 produit.avis=[]
                 produit.noteMoyenneAvis=0
