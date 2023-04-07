@@ -49,7 +49,6 @@ export default {
         },
         //edit
         toggleReadonly(indexLigne){
-          console.log("readonlyyyyy")
           if (this.panier[indexLigne].prixReadonly)
             this.panier[indexLigne].prixReadonly=false
           else
@@ -63,7 +62,6 @@ export default {
           //save in database todo
           panierService.editProduitFromPanier(this.panier[indexLigne].ligneId,this.idClient,this.panier[indexLigne].varianteId,this.panier[indexLigne].quantite)
             .then(response => {
-              console.log(response)
               //204 if succed
               
             })

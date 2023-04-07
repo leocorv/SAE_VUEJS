@@ -35,37 +35,35 @@ export default {
         },
         //retour page arrière
         retour() {
-            console.log("back")
             this.$router.back()
         },
         //ajout panier
         ajouterAuPanier(){
-            console.log("panier")
             const idVariante = this.produit.variantesProduitNavigation[this.indexVariante].idVariante
-            this.idUser=panierService.getUserConnectedFromLocalStorage().clientId
+            const tempUser = panierService.getUserConnectedFromLocalStorage()
+            if(tempUser!=null){
+                this.idUser=tempUser.clientId
+            }
             if (this.idUser!=null) {
                 
                 //check if not in panier
-                panierService.getProduitsPanier(3).then(response => {
+                panierService.getProduitsPanier(this.idUser).then(response => {
                     if(response!=null){
-                        console.log(response)
                         const objInPanier=response.find(r=>r.varianteId==idVariante)
                         if (objInPanier!=null){
                             panierService.editProduitFromPanier(objInPanier.ligneId,this.idUser,idVariante,this.quantite)
                             .then(response => {
-                                console.log(response.status)
                                 if(response.status==204){
                                 this.$router.push('/panier')
                                 }
                                 //204 if succed
                             })
                         }else{
-                            panierService.setProduitInPanier(idUser,idVariante,this.quantite).then(response => {
-                            console.log(response.status)
-                            //undefined if succed
-                            if(response.status==201){
-                                this.$router.push('/panier')
-                            }
+                            panierService.setProduitInPanier(this.idUser,idVariante,this.quantite).then(response => {
+                                //undefined if succed
+                                if(response.status==201){
+                                    this.$router.push('/panier')
+                                }
                             })
                         }
                     }
@@ -193,8 +191,8 @@ export default {
                                 Ajouter au panier
                             </button>
                         </div>
-                        <div v-if="this.erreur!=null">
-                            <p class="text-xl text-red-600 font-bold">{{ erreur }}</p>
+                        <div v-if="this.error!=null">
+                            <p class="text-xl text-red-600 font-bold">{{ error }}</p>
                         </div>
                     </div>
                 </div>

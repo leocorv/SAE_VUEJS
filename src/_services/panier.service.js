@@ -18,7 +18,6 @@ let getProduitsPanier = (idClient) => {
                         produitsList.push(pdt)
                     })
                     produitsList.sort((a,b)=>(a.varianteId > b.varianteId) ? 1 : -1) //tri par variante id sinon c'est chiant
-                    console.log("fetched panier")
                     resolve(produitsList)
                 })
                 .catch((e)=> {
@@ -43,7 +42,6 @@ let setProduitInPanier = (idUser,idVariante,quantitePdt) => {
             })
             .then(response => {
                                 
-                console.log("post panier")
                 resolve(response)
             })
             .catch((e)=> {
@@ -68,7 +66,6 @@ let editProduitFromPanier = (idLigne,idUser,idVariante,quantitePdt) => {
             quantite: quantitePdt
         })
         .then(response => {
-            console.log("put panier")
             resolve(response)
         })
         .catch((e)=> {
@@ -86,9 +83,7 @@ let deleteProduitFromPanier = (idLigne) => {
         requestString+=""+idLigne //id de la ligne
         //request
         axios.delete(requestString)
-            .then(response => {
-                                    
-                console.log("deleted panier")
+            .then(response => {                                    
                 resolve(response)
             })
             .catch((e)=> {
@@ -113,7 +108,6 @@ let validerPanier = async (idClient,adresse,isExpress,isCollect,instructions) =>
                 adresseId=response.data
             })
             .catch((e)=> {
-                console.log("erreur"+e)
                 resolve (null)
             })
 
@@ -131,7 +125,6 @@ let validerPanier = async (idClient,adresse,isExpress,isCollect,instructions) =>
                 remarque:''
             })
             .then(response => {
-                console.log("post adresse")
             })
             .catch((e)=> {
                 console.log("erreur"+e)
@@ -165,7 +158,6 @@ let validerPanier = async (idClient,adresse,isExpress,isCollect,instructions) =>
             etatId:1
         })
         .then(response => {
-            console.log("panier validated")
             resolve(response)
         })
         .catch((e)=> {

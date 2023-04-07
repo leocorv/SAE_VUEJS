@@ -32,17 +32,14 @@ let getNbPages = (idCategorie,couleursId,prixMin,prixMax) => {
             axios.get(requestString)
                 .then(response => {
                     nbPages = response.data
-
                     localStorageService.setWithExpiry(name,nbPages,tpsExp) //on stocke les données dans le localstorage
 
-                    console.log("fetched nb pages produits")
                     resolve(nbPages)
                 })
                 .catch((e)=> {
                     console.log("erreur"+e)
                 })
         }else{
-            console.log("on a pas fetch nbpage pdt")
             resolve(nbPages_value)
         }
     })
@@ -50,7 +47,6 @@ let getNbPages = (idCategorie,couleursId,prixMin,prixMax) => {
 
 //get produits de la page
 let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
-    localStorage.clear()
     //on renvoie une promesse
     return new Promise(function(resolve){
         const name="produits"+idCategorie+"/"+numPage+"/"+couleursId+"/"+prixMin+"/"+prixMax //NOM DE LA VAR DU LOCALSTORAGE
@@ -111,14 +107,12 @@ let getProduits = (idCategorie,numPage,couleursId,prixMin,prixMax) => {
                     
                     localStorageService.setWithExpiry(name,produitsList,tpsExp) //on stocke les données dans le localstorage
 
-                    console.log("fetched produits")
                     resolve(produitsList)
                 })
                 .catch((e)=> {
                     console.log("erreur"+e)
                 })
         }else{
-            console.log("on a pas fetch pdt")
             resolve(produits_value)
         }
 
@@ -150,7 +144,6 @@ let getProduitById = (idProduit) => {
                 })
                 produit.noteMoyenneAvis = produit.noteMoyenneAvis/produit.avis.length
 
-                console.log("fetched 1 produit")
                 resolve(produit)
             })
             .catch((e)=> {
