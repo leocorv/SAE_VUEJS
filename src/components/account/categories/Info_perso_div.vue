@@ -19,7 +19,7 @@
     </div>
     <div class="flex flex-col items-start mt-3">
       <label for="email">Email:</label>
-      <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" type="email" id="mail" v-model="mail" :readonly="!editing" />
+      <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" type="email" id="mail" v-model="mail" :readonly="!editing" pattern="^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$" title="Doit être de ce format : mail@domaine.code"/>
       <span class="text-red-600 whitespace-nowrap max-w-[10rem]">{{ emailError }}</span>
     </div>
     <div class="flex flex-col items-start mt-3">

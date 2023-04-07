@@ -5,11 +5,11 @@
         <form>
             <div class="flex flex-col items-start mt-3">
                 <label for="prenom">Ancien mot de passe :</label>
-                <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="password" id="oldpasswword" v-model="oldpassword" :readonly="!editing" />
+                <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="password" id="oldpasswword" v-model="oldpassword" :readonly="!editing" title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
             </div>
             <div class="flex flex-col items-start mt-3">
                 <label for="prenom">Nouveau mot de passe :</label>
-                <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="password" id="newpassword" v-model="newpassword" :readonly="!editing" />
+                <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="password" id="newpassword" v-model="newpassword" :readonly="!editing"  title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
                 <span class="text-red-600 whitespace-nowrap max-w-[10rem]">{{ messageError }}</span>
             </div>
             <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" @click.prevent="toggleEditing">
@@ -51,16 +51,23 @@ export default {
                 try {
                     var oldpasswordCrypted = crypto.encrypt(this.oldpassword.toString(), import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
                     var newpasswordCrypted = crypto.encrypt(this.newpassword.toString(), import.meta.env.VITE_CRYPTO_KEY, import.meta.env.VITE_IV_FIXE);
-                    const response = await accountService.putReplacePassword(idClient, oldpasswordCrypted, newpasswordCrypted);
-                    console.log(response);
-                    if(response == true){
-                        this.messageSuccess = "Votre mot de passe a bien été modifié."
-                        user.password = newpasswordCrypted;
-                        localStorage.setItem("user", JSON.stringify(user));
-                        this.$forceUpdate();
-                        this.messageSuccess = "Votre mot de passe a bien été modifié."
+                    if (oldpasswordCrypted == newpasswordCrypted){
+                        this.oldpassword = "";
+                        this.newpassword = "";
+                        this.$forceUpdate(); // Force VueJS à mettre à jour le DOM
+                        this.messageError = "Les mots de passe sont identique.";
                     } else {
-                        throw new Error("Error updating password");
+                        const response = await accountService.putReplacePassword(idClient, oldpasswordCrypted, newpasswordCrypted);
+                        // console.log(response);
+                        if(response == true){
+                            this.messageSuccess = "Votre mot de passe a bien été modifié."
+                            user.password = newpasswordCrypted;
+                            localStorage.setItem("user", JSON.stringify(user));
+                            this.$forceUpdate();
+                            this.messageSuccess = "Votre mot de passe a bien été modifié."
+                        } else {
+                            throw new Error("Error updating password");
+                        }
                     }
                 } catch (error) {
                     // console.log(error);

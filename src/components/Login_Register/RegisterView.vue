@@ -33,20 +33,20 @@
                 <div class="pt-4">
                     <label>E-mail *</label>
                     <div>
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" ref="email" required autocomplete="email" autofocus>
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="email" type="email" name="email" ref="email"  required autocomplete="email" autofocus pattern="^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$" title="Doit être de ce format : mail@domaine.code">
                     </div>
                     <span class="text-red-600 whitespace-nowrap max-w-[10rem]">{{ emailError }}</span>
                 </div>
                 <div class="pt-4">
                     <label>Mot de passe *</label>
                     <div>
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password_register" type="password" name="password" ref="password_register" required>
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password_register" type="password" name="password" ref="password_register" required title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     </div>
                 </div>
                 <div class="pt-4">
                     <label>Confirmer le mot de passe *</label>
                     <div>
-                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password_second" type="password" name="password" ref="password_second" required>
+                        <input class="border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-lg p-1" id="password_second" type="password" name="password" ref="password_second" required title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     </div>
                 </div>
                 <span class="text-red-600 whitespace-nowrap max-w-[10rem]">{{ errorPwd }}</span>

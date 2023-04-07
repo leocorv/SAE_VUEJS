@@ -150,7 +150,7 @@ export default {
         }
       } else {
         try {
-          const newAddress = await accountService.postAdresseWithClient(user.clientId,updatedData);
+          const newAddress = await accountService.postAdresseWithClient(user.clientId, updatedData);
 
           this.hasAddress = true;
 
