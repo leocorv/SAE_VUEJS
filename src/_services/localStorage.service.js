@@ -19,7 +19,7 @@ function get(itemName){
     }
     //sinon on le parse
     const item = JSON.parse(itemStr)
-    return item.value
+    return item
 }
 
 //pemet de récupérer un item (s'il existe et s'il n'est pas expiré) dans le local storage

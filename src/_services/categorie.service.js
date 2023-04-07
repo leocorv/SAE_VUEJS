@@ -28,17 +28,12 @@ let getCategories = () => {
 
                     //on stocke les données dans le localstorage
                     localStorageService.setWithExpiry(name,categorie_list,tpsExp)
-                    
-                    //debug
-                    console.log("on a du fetch")
-
                     resolve(categorie_list)
                 })
                 .catch((e)=> {
                     console.log("erreur"+e)
                 })
         }else {
-            console.log("on a pas fetch")
             resolve(categories_value)
         }
     })

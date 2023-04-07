@@ -1,6 +1,7 @@
 <script>
 import { panierService } from "../_services"
 export default {
+  props:["test"],
     data() {
         return{
             //panier
@@ -12,17 +13,26 @@ export default {
     methods: {
         //get panier
         getPanier(){
-          panierService.getProduitsPanier(this.idClient).then(response => {
-            this.panier = response
-            if(this.panier!=null)
+          const temp = panierService.getUserConnectedFromLocalStorage()
+          // const temp={clientId:1}
+          if (temp!=null)  
+          {
+            this.idClient=temp.clientId
+            if (this.idClient!=null)
             {
-              this.panier.forEach((ligne,index)=>{
-                this.panier[index].prixReadonly=true
-                this.panier[index].quantiteTemp=this.panier[index].quantite
+              panierService.getProduitsPanier(this.idClient).then(response => {
+                this.panier = response
+                if(this.panier!=null)
+                {
+                  this.panier.forEach((ligne,index)=>{
+                    this.panier[index].prixReadonly=true
+                    this.panier[index].quantiteTemp=this.panier[index].quantite
+                  })
+                  this.calculePrixTotal()
+                }
               })
-              this.calculePrixTotal()
             }
-          })
+          }
         },
         calculePrixTotal(){
           this.prixTotal=0
@@ -52,7 +62,6 @@ export default {
           //save in database todo
           panierService.editProduitFromPanier(this.panier[indexLigne].ligneId,this.idClient,this.panier[indexLigne].varianteId,this.panier[indexLigne].quantite)
             .then(response => {
-              console.log(response)
               //204 if succed
               
             })
@@ -62,12 +71,7 @@ export default {
         },
     },   
     mounted() {
-        // this.idClient=panierService.getUserConnectedFromLocalStorage()
-        this.idClient=2;
-        if (this.idClient!=null)
-        {
-          this.getPanier()
-        }
+      this.getPanier()
     }
 }
 
@@ -80,20 +84,28 @@ export default {
   </div>
   <div class="h-auto mt-5 mb-5 flex flex-col place-self-center justify-center ">
     <h2 class="text-5xl mb-24 mt-10">Mon panier</h2>
+    <!-- pas co -->
+    <div v-if="this.idClient==null" class=" h-56 flex flex-col place-items-center justify-center mt-5">
+      <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Vous n'êtes pas connecté !</p>
+      <div class=" text-lg flex flex-row gap-2 mt-10 place-items-center justify-center ">
+        <p>Connectez vous ou créez vous un compte</p>
+        <a class="underline text-purple-900 font-semibold hover:cursor-pointer hover:font-bold" href="/account"> ici</a>
+      </div>
+  </div>
     <!-- loading / vide -->
-    <div v-if="this.panier == 'loading'" class=" h-56 flex flex-col place-items-center justify-center">
+    <div v-else-if="this.panier == 'loading'" class=" h-56 flex flex-col place-items-center justify-center">
         <p class="text-2xl flex flex-col place-items-center justify-center gap-5">Chargement ...</p>
     </div>
     <div v-else-if="this.panier==null || this.panier.length==0" class=" h-56 flex flex-col place-items-center justify-center mt-5">
-            <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Votre panier est vide</p>
-            <div class=" text-lg flex flex-row gap-2 mt-10 place-items-center justify-center ">
-              <p>Allez voir la</p>
-              <a class="underline text-purple-900 font-semibold hover:cursor-pointer hover:font-bold" href="/"> boutique</a>
-            </div>
+        <p class="text-3xl flex flex-col place-items-center justify-center gap-5">Votre panier est vide</p>
+        <div class=" text-lg flex flex-row gap-2 mt-10 place-items-center justify-center ">
+          <p>Allez voir la</p>
+          <a class="underline text-purple-900 font-semibold hover:cursor-pointer hover:font-bold" href="/"> boutique</a>
         </div>
+    </div>
     <!-- affichage -->
     <div v-else class="flex flex-col h-full px-10 gap-14 place-items-center text-lg ">
-      <div v-for="ligne,index in this.panier" class="flex flex-row place-items-center ">
+      <div v-for="ligne,index in this.panier" class="flex flex-row place-items-center " data-test="ligne">
         <div  class="px-5 flex w-2/3Screen gap-10 h-auto border border-gray-600 py-5 rounded place-items-center justify-center ">
           <!-- photo -->
           <div class="flex flex-row border border-gray-300 p-2 h-40 w-auto">
@@ -145,7 +157,7 @@ export default {
           <div v-if="ligne.prixReadonly" class="flex flex-col gap-4">
             <!-- edit -->
             <div class="ml-5">
-              <button @click="toggleReadonly(index)" 
+              <button @click="toggleReadonly(index)" button-modif
                 class="w-32 transition-all text-base rounded px-2 py-1 border-2 border-blue-500 bg-blue-200 hover:cursor-pointer hover:bg-blue-300 hover:border-blue-800">
                 <p>Modifier la quantité</p>
               </button>
