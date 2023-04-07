@@ -21,7 +21,7 @@
                 <div>
                     <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" >
                       <span class=" absolute inset-0 bg-gray-200 "></span>
-                      <span class=" rounded-full absolute inset-0 flex justify-center items-center font-bold"> 
+                      <span class=" rounded-full absolute inset-0 flex justify-center items-center font-bold" id="btn_connexion"> 
                         Connexion
                       </span>
                       Connexion

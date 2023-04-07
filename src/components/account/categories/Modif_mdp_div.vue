@@ -5,14 +5,14 @@
         <form>
             <div class="flex flex-col items-start mt-3">
                 <label for="prenom">Ancien mot de passe :</label>
-                <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="password" id="oldpasswword" v-model="oldpassword" :readonly="!editing" title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+                <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="password" id="oldpasswword" v-model="oldpassword" :readonly="!editing" />
             </div>
             <div class="flex flex-col items-start mt-3">
                 <label for="prenom">Nouveau mot de passe :</label>
                 <input class="peer border-solid border-2 border-gray-700/10 min-w-full rounded-xl text-base p-1" type="password" id="newpassword" v-model="newpassword" :readonly="!editing"  title="Doit contenir au minimum un chiffre, une minuscule, une majuscule et faire minimum 8 caractères" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
                 <span class="text-red-600 whitespace-nowrap max-w-[10rem]">{{ messageError }}</span>
             </div>
-            <button class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" @click.prevent="toggleEditing">
+            <button id="btn_validerNewMdp" class=" rounded-full btn2 mt-6 px-10 py-4 relative border border-gray-500 uppercase font-bold tracking-wider leading-none overflow-hidden text-gray-900" type="submit" @click.prevent="toggleEditing">
                 <span class=" absolute inset-0 bg-gray-200 "></span>
                 <span class=" rounded-full absolute inset-0 flex justify-center items-center font-bold"> 
                 {{ editing ? "Enregistrer" : "Modifier" }}
